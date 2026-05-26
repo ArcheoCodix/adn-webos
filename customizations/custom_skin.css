@@ -1,0 +1,18 @@
+/* Thème ADN — couleurs principales */
+--sand-bg-color: #0d0d1a;
+--sand-component-background-color: #12122a;
+--sand-overlay-bg-color: rgba(13, 13, 26, 0.9);
+
+--sand-text-color: #f0f0f0;
+--sand-text-sub-color: #a0a0c0;
+
+--sand-focus-bg-color: #e63946;
+--sand-focus-text-color: #ffffff;
+--sand-accent-color: #e63946;
+
+--sand-button-bg-color: #1e1e3a;
+--sand-button-focused-bg-color: #e63946;
+
+--sand-input-bg-color: #1e1e3a;
+--sand-input-focused-bg-color: #12122a;
+--sand-input-border-color: #e63946;

@@ -1,0 +1,14 @@
+{
+    "id": "com.adn.webos",
+    "version": "0.1.0",
+    "vendor": "Community",
+    "type": "web",
+    "main": "index.html",
+    "title": "ADN",
+    "appDescription": "Application non-officielle Animation Digital Network pour WebOS TV",
+    "icon": "icon.png",
+    "largeIcon": "icon130.png",
+    "bgColor": "#0d0d1a",
+    "iconColor": "#e63946",
+    "disableBackHistoryAPI": true
+}
