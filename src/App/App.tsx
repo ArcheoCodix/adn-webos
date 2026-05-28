@@ -10,24 +10,28 @@ import PlayerPanel from '../views/PlayerPanel';
 
 import css from './App.module.less';
 
-const VIEWS = {
-	LOGIN: 'login',
-	HOME: 'home',
-	SEARCH: 'search',
-	SERIE: 'serie',
-	PLAYER: 'player'
-};
+type View = 'login' | 'home' | 'search' | 'serie' | 'player';
+
+interface ShowState {
+	showId: number;
+	title: string;
+}
+
+interface VideoState {
+	videoId: number;
+	title: string;
+}
 
 const AppBase = () => {
-	const [view, setView] = useState(isLoggedIn() ? VIEWS.HOME : VIEWS.LOGIN);
-	const [selectedShow, setSelectedShow] = useState(null);
-	const [selectedVideo, setSelectedVideo] = useState(null);
-	const [, setNavHistory] = useState([]);
+	const [view, setView] = useState<View>(isLoggedIn() ? 'home' : 'login');
+	const [selectedShow, setSelectedShow] = useState<ShowState | null>(null);
+	const [selectedVideo, setSelectedVideo] = useState<VideoState | null>(null);
+	const [, setNavHistory] = useState<View[]>([]);
 
-	const navigate = useCallback((nextView, state = {}) => {
+	const navigate = useCallback((nextView: View, state: Partial<ShowState & VideoState> = {}) => {
 		setNavHistory(h => [...h, view]);
-		if (state.showId !== undefined) setSelectedShow(state);
-		if (state.videoId !== undefined) setSelectedVideo(state);
+		if (state.showId !== undefined) setSelectedShow(state as ShowState);
+		if (state.videoId !== undefined) setSelectedVideo(state as VideoState);
 		setView(nextView);
 	}, [view]);
 
@@ -39,42 +43,42 @@ const AppBase = () => {
 		});
 	}, []);
 
-	const goHome = useCallback(() => setView(VIEWS.HOME), []);
-	const goSearch = useCallback(() => navigate(VIEWS.SEARCH), [navigate]);
+	const goHome = useCallback(() => setView('home'), []);
+	const goSearch = useCallback(() => navigate('search'), [navigate]);
 
-	const handleShowSelect = useCallback((showId, title) => {
-		navigate(VIEWS.SERIE, {showId, title});
+	const handleShowSelect = useCallback((showId: number, title: string) => {
+		navigate('serie', {showId, title});
 	}, [navigate]);
 
-	const handleEpisodeSelect = useCallback((videoId, title) => {
-		navigate(VIEWS.PLAYER, {videoId, title});
+	const handleEpisodeSelect = useCallback((videoId: number, title: string) => {
+		navigate('player', {videoId, title});
 	}, [navigate]);
 
 	return (
 		<div className={css.app}>
-			{view === VIEWS.LOGIN && (
+			{view === 'login' && (
 				<LoginPanel onLogin={goHome} />
 			)}
-			{view === VIEWS.HOME && (
+			{view === 'home' && (
 				<HomePanel
 					onShowSelect={handleShowSelect}
 					onSearchOpen={goSearch}
 				/>
 			)}
-			{view === VIEWS.SEARCH && (
+			{view === 'search' && (
 				<SearchPanel
 					onShowSelect={handleShowSelect}
 					onBack={goBack}
 				/>
 			)}
-			{view === VIEWS.SERIE && selectedShow && (
+			{view === 'serie' && selectedShow && (
 				<SeriePanel
 					showId={selectedShow.showId}
 					onEpisodeSelect={handleEpisodeSelect}
 					onBack={goBack}
 				/>
 			)}
-			{view === VIEWS.PLAYER && selectedVideo && (
+			{view === 'player' && selectedVideo && (
 				<PlayerPanel
 					videoId={selectedVideo.videoId}
 					title={selectedVideo.title}

@@ -1,11 +1,18 @@
 import {useCallback} from 'react';
-import kind from '@enact/core/kind';
-import Heading from '@enact/sandstone/Heading';
+import Heading from '../Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Scroller from '@enact/sandstone/Scroller';
 
-const ShowGridBase = ({title, shows = [], onSelect}) => {
-	const makeSelectHandler = useCallback((id, showTitle) => () => {
+import type {Show} from '../../types/adn';
+
+interface ShowGridProps {
+	title?: string;
+	shows?: Show[];
+	onSelect?: (id: number, title: string) => void;
+}
+
+const ShowGrid = ({title, shows = [], onSelect}: ShowGridProps) => {
+	const makeSelectHandler = useCallback((id: number, showTitle: string) => () => {
 		onSelect?.(id, showTitle);
 	}, [onSelect]);
 
@@ -19,8 +26,8 @@ const ShowGridBase = ({title, shows = [], onSelect}) => {
 					{shows.map(show => (
 						<ImageItem
 							key={show.id}
-							src={show.image?.cover || show.image?.thumbnail || show.image}
-							style={{minWidth: '200px'}}
+							src={show.image}
+							style={{minWidth: '200px', height: '200px'}}
 							onClick={makeSelectHandler(show.id, show.title)}
 						>
 							{show.title}
@@ -31,10 +38,5 @@ const ShowGridBase = ({title, shows = [], onSelect}) => {
 		</div>
 	);
 };
-
-const ShowGrid = kind({
-	name: 'ShowGrid',
-	render: ShowGridBase
-});
 
 export default ShowGrid;

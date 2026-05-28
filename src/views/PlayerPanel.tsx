@@ -1,14 +1,20 @@
 import {useState, useEffect} from 'react';
 import {Panel} from '@enact/sandstone/Panels';
-import VideoPlayer from '@enact/sandstone/VideoPlayer';
-import Spinner from '@enact/sandstone/Spinner';
+import VideoPlayer from '../components/VideoPlayer';
+import Spinner from '../components/Spinner';
 
 import {getStreamUrl} from '../api/player';
 
-const PlayerPanel = ({videoId, title, onBack}) => {
-	const [streamUrl, setStreamUrl] = useState(null);
+interface PlayerPanelProps {
+	videoId?: number;
+	title?: string;
+	onBack?: () => void;
+}
+
+const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
+	const [streamUrl, setStreamUrl] = useState<string | null>(null);
 	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (!videoId) return;
@@ -37,7 +43,7 @@ const PlayerPanel = ({videoId, title, onBack}) => {
 				onBack={onBack}
 				autoCloseTimeout={5000}
 			>
-				<source src={streamUrl} type="application/x-mpegURL" />
+				<source src={streamUrl ?? undefined} type="application/x-mpegURL" />
 			</VideoPlayer>
 		</Panel>
 	);

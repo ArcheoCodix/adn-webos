@@ -1,19 +1,25 @@
 import {useState, useCallback} from 'react';
 import Button from '@enact/sandstone/Button';
-import Input from '@enact/sandstone/Input';
+import Input from '../components/Input';
+import type {InputChangeEvent} from '../types/adn';
 import {Panel, Header} from '@enact/sandstone/Panels';
-import Spinner from '@enact/sandstone/Spinner';
+import Spinner from '../components/Spinner';
 
 import {login} from '../api/auth';
+import {ApiError} from '../api/client';
 
-const LoginPanel = ({onLogin}) => {
+interface LoginPanelProps {
+	onLogin?: () => void;
+}
+
+const LoginPanel = ({onLogin}: LoginPanelProps) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 
-	const handleUsernameChange = useCallback(({value}) => setUsername(value), []);
-	const handlePasswordChange = useCallback(({value}) => setPassword(value), []);
+	const handleUsernameChange = useCallback(({value}: InputChangeEvent) => setUsername(value), []);
+	const handlePasswordChange = useCallback(({value}: InputChangeEvent) => setPassword(value), []);
 
 	const handleLogin = useCallback(async () => {
 		if (!username || !password) return;
@@ -23,7 +29,7 @@ const LoginPanel = ({onLogin}) => {
 			await login(username, password);
 			onLogin?.();
 		} catch (e) {
-			setError(e.status === 401
+			setError(e instanceof ApiError && e.status === 401
 				? 'Identifiants incorrects'
 				: 'Erreur de connexion, réessayez'
 			);

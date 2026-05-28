@@ -1,17 +1,24 @@
 import {useState, useCallback} from 'react';
 import {Panel, Header} from '@enact/sandstone/Panels';
-import Input from '@enact/sandstone/Input';
-import Spinner from '@enact/sandstone/Spinner';
+import Input from '../components/Input';
+import type {InputChangeEvent} from '../types/adn';
+import Spinner from '../components/Spinner';
 
 import {search} from '../api/catalog';
 import ShowGrid from '../components/ShowGrid/ShowGrid';
+import type {Show} from '../types/adn';
 
-const SearchPanel = ({onShowSelect, onBack}) => {
+interface SearchPanelProps {
+	onShowSelect?: (id: number, title: string) => void;
+	onBack?: () => void;
+}
+
+const SearchPanel = ({onShowSelect, onBack}: SearchPanelProps) => {
 	const [query, setQuery] = useState('');
-	const [results, setResults] = useState([]);
+	const [results, setResults] = useState<Show[]>([]);
 	const [loading, setLoading] = useState(false);
 
-	const handleSearch = useCallback(async ({value}) => {
+	const handleSearch = useCallback(async ({value}: InputChangeEvent) => {
 		setQuery(value);
 		if (!value || value.length < 2) {
 			setResults([]);
@@ -20,7 +27,7 @@ const SearchPanel = ({onShowSelect, onBack}) => {
 		setLoading(true);
 		try {
 			const data = await search(value);
-			setResults(data.shows || data.videos || []);
+			setResults(data.shows || []);
 		} catch {
 			setResults([]);
 		} finally {
