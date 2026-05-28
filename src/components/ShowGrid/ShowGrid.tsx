@@ -27,7 +27,7 @@ const ShowGrid = ({title, shows = [], onSelect}: ShowGridProps) => {
 						<ImageItem
 							key={show.id}
 							src={show.image}
-							style={{minWidth: '200px', height: '200px'}}
+							style={{minWidth: '300px', height: '400px'}}
 							onClick={makeSelectHandler(show.id, show.title)}
 						>
 							{show.title}
