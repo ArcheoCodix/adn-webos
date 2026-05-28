@@ -51,9 +51,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.7
         version: 18.3.7(@types/react@18.3.29)
-      eslint-config-enact-proxy:
-        specifier: ^1.0.9
-        version: 1.0.9
+      eslint-config-enact:
+        specifier: ^5.1.0
+        version: 5.1.0(@babel/core@7.29.7)(eslint@9.39.4(jiti@2.7.0))(jest@30.4.2(@types/node@25.9.1))(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -3051,9 +3051,6 @@ packages:
     resolution: {integrity: sha512-2NlIDTwUWJN0mRPQOdtQBzbUHvdGY2P1VXSyU83Q3xKxM7WHX2Ql8dKq782Q9TgQUNOLEzEYu9bzLNj1q88I5w==}
     engines: {node: '>=6.0'}
     hasBin: true
-
-  eslint-config-enact-proxy@1.0.9:
-    resolution: {integrity: sha512-me79VE1DiaQ5Dr7mTEOwTemQvGm9J8sxHXdwIkvLL0+4+fuF2lw0oBpT9UUITHRIc64hdZO1WXmZPw66St3s9w==}
 
   eslint-config-enact@5.1.0:
     resolution: {integrity: sha512-noExTPr5r2AzczLA0pizonv2hv1AuPOjQ8KSzrOKkBFiAZdFoq1ObhVriFRW+EdR1kXBMVCUz4KuQYTO5lj4Fw==}
@@ -9987,10 +9984,6 @@ snapshots:
       esutils: 2.0.3
     optionalDependencies:
       source-map: 0.6.1
-
-  eslint-config-enact-proxy@1.0.9:
-    dependencies:
-      semver: 7.8.1
 
   eslint-config-enact@5.1.0(@babel/core@7.29.7)(eslint@9.39.4(jiti@2.7.0))(jest@30.4.2(@types/node@25.9.1))(typescript@6.0.3):
     dependencies:
