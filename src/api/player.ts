@@ -53,7 +53,8 @@ export async function getStreamUrl(videoId: number): Promise<string | null> {
 
 	if (!lang) return null;
 	const qualities = data.links.streaming[lang];
-	const loadbalancerUrl = qualities.auto ?? qualities.fhd ?? qualities.hd ?? qualities.sd;
+	// Prefer fixed-quality (MPEG-TS) over adaptive (fMP4/CMAF) for WebOS 4.x compatibility
+	const loadbalancerUrl = qualities.fhd ?? qualities.hd ?? qualities.sd ?? qualities.auto;
 	if (!loadbalancerUrl) return null;
 
 	// Loadbalancer returns JSON {location: "https://simulcast..."} — follow it
