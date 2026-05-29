@@ -8,6 +8,7 @@
 		"serve": "enact serve",
 		"pack": "enact pack",
 		"pack-p": "enact pack -p",
+		"pack-ipk": "enact pack -p && ares-package dist/ --outdir .",
 		"watch": "enact pack --watch",
 		"clean": "enact clean",
 		"lint": "enact lint .",
@@ -40,6 +41,7 @@
 		"@types/node": "^25.9.1",
 		"@types/react": "^18.3.29",
 		"@types/react-dom": "^18.3.7",
+		"@webos-tools/cli": "^3.2.4",
 		"eslint-config-enact": "^5.1.0",
 		"typescript": "^6.0.3"
 	}
