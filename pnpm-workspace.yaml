@@ -1,6 +1,9 @@
 allowBuilds:
+  '@webos-tools/cli': true
   core-js: true
   core-js-pure: true
+  cpu-features: true
+  ssh2: true
   unrs-resolver: true
 
 shamefullyHoist: true
