@@ -26,6 +26,9 @@ importers:
       ilib:
         specifier: ^14.22.0
         version: 14.22.0
+      jsencrypt:
+        specifier: ^3.5.4
+        version: 3.5.4
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -4117,6 +4120,9 @@ packages:
     peerDependenciesMeta:
       canvas:
         optional: true
+
+  jsencrypt@3.5.4:
+    resolution: {integrity: sha512-kNjfYEMNASxrDGsmcSQh/rUTmcoRfSUkxnAz+MMywM8jtGu+fFEZ3nJjHM58zscVnwR0fYmG9sGkTDjqUdpiwA==}
 
   jsesc@3.1.0:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
@@ -11420,6 +11426,8 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
+
+  jsencrypt@3.5.4: {}
 
   jsesc@3.1.0: {}
 

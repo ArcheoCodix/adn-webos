@@ -50,30 +50,39 @@ export interface CatalogResponse {
 	total: number;
 }
 
+export interface VideoUser {
+	id: number;
+	stoptime: number;
+	watchDate: string | null;
+}
+
 export interface Video {
 	id: number;
 	title: string;
-	number: number;
-	season: number;
-	image: string | { thumbnail?: string; cover?: string } | null;
-	summary?: string;
-	duration?: number;
-	releaseDate?: string;
-	free?: boolean;
-	available?: boolean;
+	name: string;
+	number: string;
+	image: string;
+	duration: number;
+	urlPath: string;
+	free: boolean;
+	freeWithAds: boolean;
+	user?: VideoUser;
 }
 
-export interface ShowDetail extends Show {
-	// champs supplémentaires éventuels de /video/show/{id}
+export interface Season {
+	season: number | null;
+	title: string;
+	videos: Video[];
 }
+
+export interface SeasonsResponse {
+	seasons: Season[];
+}
+
+export interface ShowDetail extends Show {}
 
 export interface ShowDetailResponse {
 	show: ShowDetail;
-}
-
-export interface ShowVideosResponse {
-	videos: Video[];
-	total?: number;
 }
 
 export interface LoginResponse {
@@ -87,15 +96,68 @@ export interface RefreshResponse {
 	refreshToken?: string;
 }
 
+export interface StreamingQuality {
+	sd?: string;
+	hd?: string;
+	fhd?: string;
+	auto?: string;
+}
+
 export interface PlayerLinkResponse {
 	links: {
-		streaming: string;
-		download?: string;
+		streaming: Record<string, StreamingQuality>;
+		subtitles: Record<string, string>;
+		history: string;
+		nextVideoUrl?: string;
+		previousVideoUrl?: string;
 	};
-	metadata?: Record<string, unknown>;
+	video: {
+		id: number;
+		currentTime: number;
+		duration: number;
+		url: string;
+		image: string;
+	};
+	metadata: {
+		title: string;
+		subtitle: string;
+		summary: string;
+		rating: number;
+	};
+	languages: Array<{label: string; audio: string; subtitles: string}>;
+}
+
+export interface PlayerUserOptions {
+	hasAccess: boolean;
+	profileId: number;
+	refreshToken: string;
+	refreshTokenUrl: string;
 }
 
 export interface PlayerConfigResponse {
-	player?: Record<string, unknown>;
-	video?: Record<string, unknown>;
+	player: {
+		image: string;
+		options: {
+			user: PlayerUserOptions;
+			video: {
+				startDate: string | null;
+				currentDate: string;
+				available: boolean;
+				free: boolean;
+				url: string;
+			};
+			preference: {
+				quality: string;
+				autoplay: boolean;
+				language: string;
+				green: boolean;
+			};
+		};
+	};
+}
+
+export interface PlayerTokenResponse {
+	token: string;
+	accessToken: string;
+	refreshToken: string;
 }

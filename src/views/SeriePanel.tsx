@@ -4,60 +4,66 @@ import ImageItem from '@enact/sandstone/ImageItem';
 import Scroller from '@enact/sandstone/Scroller';
 import Spinner from '../components/Spinner';
 
-import {getShow, getShowVideos} from '../api/catalog';
-import type {ShowDetail, Video} from '../types/adn';
+import {getShowSeasons} from '../api/catalog';
+import type {Show, Season} from '../types/adn';
 
 interface SeriePanelProps {
-	showId?: number;
+	show: Show;
 	onEpisodeSelect?: (videoId: number, title: string) => void;
 	onBack?: () => void;
 }
 
-const SeriePanel = ({showId, onEpisodeSelect, onBack}: SeriePanelProps) => {
-	const [show, setShow] = useState<ShowDetail | null>(null);
-	const [videos, setVideos] = useState<Video[]>([]);
+const SeriePanel = ({show, onEpisodeSelect, onBack}: SeriePanelProps) => {
+	const [seasons, setSeasons] = useState<Season[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		if (!showId) return;
-		Promise.all([getShow(showId), getShowVideos(showId)])
-			.then(([showData, videosData]) => {
-				setShow(showData.show);
-				setVideos(videosData.videos || []);
+		getShowSeasons(show.id)
+			.then(data => {
+				setSeasons(data.seasons || []);
 			})
-			.catch(() => {})
+			.catch((e: unknown) => {
+				setError(e instanceof Error ? e.message : 'Erreur de chargement');
+			})
 			.finally(() => setLoading(false));
-	}, [showId]);
+	}, [show.id]);
 
 	const makeEpisodeHandler = useCallback((videoId: number, title: string) => () => {
 		onEpisodeSelect?.(videoId, title);
 	}, [onEpisodeSelect]);
 
+	const allVideos = seasons.flatMap(s => s.videos);
+
 	if (loading) return <Panel><Spinner /></Panel>;
+
+	if (error) {
+		return (
+			<Panel>
+				<Header title={show.title} onBack={onBack} />
+				<p style={{color: '#e63946', padding: '2rem'}}>{error}</p>
+			</Panel>
+		);
+	}
 
 	return (
 		<Panel>
 			<Header
-				title={show?.title || ''}
-				subtitle={show?.genres?.join(', ') || ''}
+				title={show.title}
+				subtitle={show.genres?.join(', ') || ''}
 				onBack={onBack}
 			/>
 			<Scroller>
-				{videos.map(video => {
-					const imgSrc = typeof video.image === 'string'
-						? video.image
-						: video.image?.thumbnail ?? video.image?.cover;
-					return (
-						<ImageItem
-							key={video.id}
-							src={imgSrc}
-							label={`Épisode ${video.season}×${video.number}`}
-							onClick={makeEpisodeHandler(video.id, video.title)}
-						>
-							{video.title}
-						</ImageItem>
-					);
-				})}
+				{allVideos.map(video => (
+					<ImageItem
+						key={video.id}
+						src={video.image}
+						label={video.number}
+						onClick={makeEpisodeHandler(video.id, video.title)}
+					>
+						{video.name}
+					</ImageItem>
+				))}
 			</Scroller>
 		</Panel>
 	);

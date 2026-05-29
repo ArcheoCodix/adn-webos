@@ -20,7 +20,9 @@ const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
 		if (!videoId) return;
 		getStreamUrl(videoId)
 			.then(url => setStreamUrl(url))
-			.catch(() => setError('Impossible de charger la vidéo'))
+			.catch((e: unknown) => {
+				setError(e instanceof Error ? e.message : 'Impossible de charger la vidéo');
+			})
 			.finally(() => setLoading(false));
 	}, [videoId]);
 

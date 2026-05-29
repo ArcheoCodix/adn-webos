@@ -8,12 +8,12 @@ import type {Show} from '../../types/adn';
 interface ShowGridProps {
 	title?: string;
 	shows?: Show[];
-	onSelect?: (id: number, title: string) => void;
+	onSelect?: (show: Show) => void;
 }
 
 const ShowGrid = ({title, shows = [], onSelect}: ShowGridProps) => {
-	const makeSelectHandler = useCallback((id: number, showTitle: string) => () => {
-		onSelect?.(id, showTitle);
+	const makeSelectHandler = useCallback((show: Show) => () => {
+		onSelect?.(show);
 	}, [onSelect]);
 
 	if (!shows.length) return null;
@@ -28,7 +28,7 @@ const ShowGrid = ({title, shows = [], onSelect}: ShowGridProps) => {
 							key={show.id}
 							src={show.image}
 							style={{minWidth: '300px', height: '400px'}}
-							onClick={makeSelectHandler(show.id, show.title)}
+							onClick={makeSelectHandler(show)}
 						>
 							{show.title}
 						</ImageItem>

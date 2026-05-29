@@ -9,7 +9,7 @@ import ShowGrid from '../components/ShowGrid/ShowGrid';
 import type {Show} from '../types/adn';
 
 interface SearchPanelProps {
-	onShowSelect?: (id: number, title: string) => void;
+	onShowSelect?: (show: Show) => void;
 	onBack?: () => void;
 }
 
