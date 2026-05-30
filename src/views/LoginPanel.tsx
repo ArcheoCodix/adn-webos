@@ -7,6 +7,7 @@ import Spinner from '../components/Spinner';
 
 import {login} from '../api/auth';
 import {ApiError} from '../api/client';
+import css from './LoginPanel.module.less';
 
 interface LoginPanelProps {
 	onLogin?: () => void;
@@ -41,8 +42,8 @@ const LoginPanel = ({onLogin}: LoginPanelProps) => {
 	return (
 		<Panel>
 			<Header title="ADN" subtitle="Connectez-vous à votre compte" />
-			<div className="login-form">
-				{error && <p className="login-error">{error}</p>}
+			<div className={css.loginForm}>
+				{error && <p className={css.loginError}>{error}</p>}
 				<Input
 					placeholder="Email"
 					value={username}

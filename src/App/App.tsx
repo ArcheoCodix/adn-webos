@@ -1,4 +1,5 @@
 import {useState, useCallback} from 'react';
+import {Panels} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import {isLoggedIn} from '../api/auth';
@@ -9,80 +10,69 @@ import SeriePanel from '../views/SeriePanel';
 import PlayerPanel from '../views/PlayerPanel';
 import type {Show} from '../types/adn';
 
-import css from './App.module.less';
-
-type View = 'login' | 'home' | 'search' | 'serie' | 'player';
-
-interface VideoState {
-	videoId: number;
-	title: string;
-}
+type NavEntry =
+	| {name: 'login'}
+	| {name: 'home'}
+	| {name: 'search'}
+	| {name: 'serie'; show: Show}
+	| {name: 'player'; videoId: number; title: string};
 
 const AppBase = () => {
-	const [view, setView] = useState<View>(isLoggedIn() ? 'home' : 'login');
-	const [selectedShow, setSelectedShow] = useState<Show | null>(null);
-	const [selectedVideo, setSelectedVideo] = useState<VideoState | null>(null);
-	const [, setNavHistory] = useState<View[]>([]);
+	const initial: NavEntry = isLoggedIn() ? {name: 'home'} : {name: 'login'};
+	const [stack, setStack] = useState<NavEntry[]>([initial]);
 
-	const goBack = useCallback(() => {
-		setNavHistory(h => {
-			const prev = h[h.length - 1];
-			if (prev) setView(prev);
-			return h.slice(0, -1);
-		});
-	}, []);
+	const push = useCallback((entry: NavEntry) => setStack(s => [...s, entry]), []);
+	const pop = useCallback(() => setStack(s => s.length > 1 ? s.slice(0, -1) : s), []);
 
-	const goHome = useCallback(() => setView('home'), []);
-
-	const goSearch = useCallback(() => {
-		setNavHistory(h => [...h, view]);
-		setView('search');
-	}, [view]);
-
-	const handleShowSelect = useCallback((show: Show) => {
-		setNavHistory(h => [...h, view]);
-		setSelectedShow(show);
-		setView('serie');
-	}, [view]);
-
-	const handleEpisodeSelect = useCallback((videoId: number, title: string) => {
-		setNavHistory(h => [...h, view]);
-		setSelectedVideo({videoId, title});
-		setView('player');
-	}, [view]);
+	const goHome = useCallback(() => setStack([{name: 'home'}]), []);
+	const goSearch = useCallback(() => push({name: 'search'}), [push]);
+	const handleShowSelect = useCallback((show: Show) => push({name: 'serie', show}), [push]);
+	const handleEpisodeSelect = useCallback((videoId: number, title: string) =>
+		push({name: 'player', videoId, title}), [push]);
 
 	return (
-		<div className={css.app}>
-			{view === 'login' && (
-				<LoginPanel onLogin={goHome} />
-			)}
-			{view === 'home' && (
-				<HomePanel
-					onShowSelect={handleShowSelect}
-					onSearchOpen={goSearch}
-				/>
-			)}
-			{view === 'search' && (
-				<SearchPanel
-					onShowSelect={handleShowSelect}
-					onBack={goBack}
-				/>
-			)}
-			{view === 'serie' && selectedShow && (
-				<SeriePanel
-					show={selectedShow}
-					onEpisodeSelect={handleEpisodeSelect}
-					onBack={goBack}
-				/>
-			)}
-			{view === 'player' && selectedVideo && (
-				<PlayerPanel
-					videoId={selectedVideo.videoId}
-					title={selectedVideo.title}
-					onBack={goBack}
-				/>
-			)}
-		</div>
+		<Panels index={stack.length - 1} onBack={pop} noCloseButton>
+			{stack.map((entry, i) => {
+				switch (entry.name) {
+					case 'login':
+						return <LoginPanel key={i} onLogin={goHome} />;
+					case 'home':
+						return (
+							<HomePanel
+								key={i}
+								onShowSelect={handleShowSelect}
+								onSearchOpen={goSearch}
+							/>
+						);
+					case 'search':
+						return (
+							<SearchPanel
+								key={i}
+								onShowSelect={handleShowSelect}
+								onBack={pop}
+							/>
+						);
+					case 'serie':
+						return (
+							<SeriePanel
+								key={i}
+								show={entry.show}
+								onEpisodeSelect={handleEpisodeSelect}
+								onBack={pop}
+							/>
+						);
+					case 'player':
+						return (
+							<PlayerPanel
+								key={i}
+								videoId={entry.videoId}
+								title={entry.title}
+								onBack={pop}
+							/>
+						);
+				}
+			})}
+		</Panels>
 	);
 };
 
