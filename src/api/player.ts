@@ -22,10 +22,17 @@ async function getPublicKey(): Promise<string> {
 	return cachedPublicKey;
 }
 
-function toDevSubtitleUrl(url: string): string {
-	if (process.env.NODE_ENV !== 'development') return url;
-	const {hostname, pathname, search} = new URL(url);
-	return `/subtitle-cdn/${hostname}${pathname}${search}`;
+async function fetchSubtitleAsBlobUrl(cdnUrl: string): Promise<string> {
+	const token = localStorage.getItem('adn_access_token');
+	const fetchUrl = process.env.NODE_ENV === 'development'
+		? `/subtitle-cdn/${new URL(cdnUrl).hostname}${new URL(cdnUrl).pathname}${new URL(cdnUrl).search}`
+		: cdnUrl;
+	const res = await fetch(fetchUrl, {
+		headers: token ? {Authorization: `Bearer ${token}`} : {}
+	});
+	if (!res.ok) throw new Error(`Subtitle fetch failed: ${res.status}`);
+	const content = await res.text();
+	return URL.createObjectURL(new Blob([content], {type: 'text/vtt'}));
 }
 
 function generateHexString(length: number): string {
@@ -89,11 +96,8 @@ export async function getPlayerData(videoId: number): Promise<PlayerData> {
 			const subtitleRedirect = await get<{location?: string}>(subtitlePath);
 			const cdnUrl = subtitleRedirect.location ?? subtitleLbUrl;
 			const match = data.languages.find(l => l.subtitles === subtitleLang);
-			return {
-				lang: subtitleLang,
-				label: match?.label ?? subtitleLang,
-				url: toDevSubtitleUrl(cdnUrl)
-			};
+			const url = await fetchSubtitleAsBlobUrl(cdnUrl);
+			return {lang: subtitleLang, label: match?.label ?? subtitleLang, url};
 		})
 	);
 
