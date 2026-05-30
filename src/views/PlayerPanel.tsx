@@ -3,7 +3,8 @@ import {Panel} from '@enact/sandstone/Panels';
 import VideoPlayer from '../components/VideoPlayer';
 import Spinner from '../components/Spinner';
 
-import {getStreamUrl} from '../api/player';
+import {getPlayerData} from '../api/player';
+import type {PlayerData} from '../api/player';
 
 interface PlayerPanelProps {
 	videoId?: number;
@@ -12,14 +13,14 @@ interface PlayerPanelProps {
 }
 
 const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
-	const [streamUrl, setStreamUrl] = useState<string | null>(null);
+	const [playerData, setPlayerData] = useState<PlayerData | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (!videoId) return;
-		getStreamUrl(videoId)
-			.then(url => setStreamUrl(url))
+		getPlayerData(videoId)
+			.then(data => setPlayerData(data))
 			.catch((e: unknown) => {
 				setError(e instanceof Error ? e.message : 'Impossible de charger la vidéo');
 			})
@@ -27,13 +28,13 @@ const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
 	}, [videoId]);
 
 	if (loading) {
-		return <Panel><Spinner /></Panel>;
+		return <Panel><Spinner centered /></Panel>;
 	}
 
-	if (error) {
+	if (error || !playerData) {
 		return (
 			<Panel>
-				<p style={{color: '#e63946', padding: '2rem'}}>{error}</p>
+				<p style={{color: '#e63946', padding: '2rem'}}>{error ?? 'Erreur inconnue'}</p>
 			</Panel>
 		);
 	}
@@ -44,9 +45,19 @@ const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
 				title={title}
 				onBack={onBack}
 				autoCloseTimeout={5000}
-			>
-				<source src={streamUrl ?? undefined} type="application/x-mpegURL" />
-			</VideoPlayer>
+				source={<>
+					<source src={playerData.streamUrl} type="application/x-mpegURL" />
+					{playerData.subtitles.map(sub => (
+						<track
+							key={sub.lang}
+							kind="subtitles"
+							src={sub.url}
+							srcLang={sub.lang}
+							label={sub.label}
+						/>
+					))}
+				</>}
+			/>
 		</Panel>
 	);
 };

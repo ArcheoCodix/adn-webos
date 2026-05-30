@@ -5,6 +5,7 @@ import SandstoneVideoPlayer from '@enact/sandstone/VideoPlayer';
 // n'est pas utilisé dans l'export. Ce wrapper expose les props nécessaires.
 interface VideoPlayerProps {
 	children?: ReactNode;
+	source?: ReactNode;
 	title?: string;
 	onBack?: () => void;
 	autoCloseTimeout?: number;
