@@ -19,7 +19,7 @@ async function getPublicKey(): Promise<string> {
 	if (cachedPublicKey) return cachedPublicKey;
 	// Response is a data URI: "data:application/x-pem-file;base64,<b64>"
 	const dataUri = await getText('/player/publickey');
-	cachedPublicKey = atob(dataUri.split(',')[1]);
+	cachedPublicKey = atob(dataUri.split(',')[1].trim());
 	return cachedPublicKey;
 }
 
