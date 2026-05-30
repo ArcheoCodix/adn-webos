@@ -30,6 +30,12 @@ const AppBase = () => {
 		return () => window.removeEventListener('adn:session-expired', handleExpired);
 	}, []);
 
+	useEffect(() => {
+		if (process.env.NODE_ENV === 'development') {
+			document.body.style.backgroundColor = '#0d0d1a';
+		}
+	}, []);
+
 	const goHome = useCallback(() => setStack([{name: 'home'}]), []);
 	const goSearch = useCallback(() => push({name: 'search'}), [push]);
 	const handleShowSelect = useCallback((show: Show) => push({name: 'serie', show}), [push]);
