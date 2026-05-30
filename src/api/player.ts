@@ -24,10 +24,7 @@ async function getPublicKey(): Promise<string> {
 
 async function fetchSubtitleAsBlobUrl(cdnUrl: string): Promise<string> {
 	const token = localStorage.getItem('adn_access_token');
-	const fetchUrl = process.env.NODE_ENV === 'development'
-		? `/subtitle-cdn/${new URL(cdnUrl).hostname}${new URL(cdnUrl).pathname}${new URL(cdnUrl).search}`
-		: cdnUrl;
-	const res = await fetch(fetchUrl, {
+	const res = await fetch(cdnUrl, {
 		headers: token ? {Authorization: `Bearer ${token}`} : {}
 	});
 	if (!res.ok) throw new Error(`Subtitle fetch failed: ${res.status}`);
