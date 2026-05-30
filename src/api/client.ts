@@ -72,6 +72,17 @@ export async function request<T>(path: string, options: RequestInit = {}, retry 
 	return res.json() as Promise<T>;
 }
 
+export const getText = async (path: string): Promise<string> => {
+	const token = localStorage.getItem('adn_access_token');
+	const headers: Record<string, string> = {
+		...DEFAULT_HEADERS,
+		...(token ? {Authorization: `Bearer ${token}`} : {})
+	};
+	const res = await fetch(`${BASE_URL}${path}`, {headers});
+	if (!res.ok) throw new ApiError(res.status);
+	return res.text();
+};
+
 export const get = <T>(path: string, params?: Record<string, unknown>): Promise<T> => {
 	const url = params
 		? `${path}?${new URLSearchParams(params as Record<string, string>)}`

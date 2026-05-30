@@ -1,5 +1,5 @@
 import JSEncrypt from 'jsencrypt';
-import {get, request} from './client';
+import {get, getText, request} from './client';
 import type {PlayerConfigResponse, PlayerLinkResponse, PlayerTokenResponse} from '../types/adn';
 
 export interface SubtitleTrack {
@@ -13,12 +13,15 @@ export interface PlayerData {
 	subtitles: SubtitleTrack[];
 }
 
-const RSA_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCbQrCJBRmaXM4gJidDmcpWDssg
-numHinCLHAgS4buMtdH7dEGGEUfBofLzoEdt1jqcrCDT6YNhM0aFCqbLOPFtx9cg
-/X2G/G5bPVu8cuFM0L+ehp8s6izK1kjx3OOPH/kWzvstM5tkqgJkNyNEvHdeJl6
-KhS+IFEqwvZqgbBpKuwIDAQAB
------END PUBLIC KEY-----`;
+let cachedPublicKey: string | null = null;
+
+async function getPublicKey(): Promise<string> {
+	if (cachedPublicKey) return cachedPublicKey;
+	// Response is a data URI: "data:application/x-pem-file;base64,<b64>"
+	const dataUri = await getText('/player/publickey');
+	cachedPublicKey = atob(dataUri.split(',')[1]);
+	return cachedPublicKey;
+}
 
 function generateHexString(length: number): string {
 	const chars = '0123456789abcdef';
@@ -43,10 +46,10 @@ export async function getPlayerData(videoId: number): Promise<PlayerData> {
 		headers: {'X-Player-Refresh-Token': user.refreshToken}
 	});
 
-	// Step 3: RSA-PKCS1 encrypt {k, t} with hardcoded public key
+	// Step 3: RSA-PKCS1 encrypt {k, t} with server-provided public key
 	const randomKey = generateHexString(16);
 	const encrypt = new JSEncrypt();
-	encrypt.setPublicKey(RSA_PUBLIC_KEY);
+	encrypt.setPublicKey(await getPublicKey());
 	const playerToken = encrypt.encrypt(JSON.stringify({k: randomKey, t: tokenData.token}));
 	if (!playerToken) throw new Error('RSA encryption failed');
 
