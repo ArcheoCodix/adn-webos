@@ -47,13 +47,14 @@ const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
 				autoCloseTimeout={5000}
 				source={<>
 					<source src={playerData.streamUrl} type="application/x-mpegURL" />
-					{playerData.subtitles.map(sub => (
+					{playerData.subtitles.map((sub, index) => (
 						<track
 							key={sub.lang}
 							kind="subtitles"
 							src={sub.url}
 							srcLang={sub.lang}
 							label={sub.label}
+							default={index === 0}
 						/>
 					))}
 				</>}
