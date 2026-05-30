@@ -22,6 +22,12 @@ async function getPublicKey(): Promise<string> {
 	return cachedPublicKey;
 }
 
+function toDevSubtitleUrl(url: string): string {
+	if (process.env.NODE_ENV !== 'development') return url;
+	const {hostname, pathname, search} = new URL(url);
+	return `/subtitle-cdn/${hostname}${pathname}${search}`;
+}
+
 function generateHexString(length: number): string {
 	const chars = '0123456789abcdef';
 	return Array.from({length}, () => chars[Math.floor(Math.random() * 16)]).join('');
@@ -81,11 +87,12 @@ export async function getPlayerData(videoId: number): Promise<PlayerData> {
 		Object.entries(data.links.subtitles).map(async ([subtitleLang, subtitleLbUrl]) => {
 			const subtitlePath = new URL(subtitleLbUrl).pathname + new URL(subtitleLbUrl).search;
 			const subtitleRedirect = await get<{location?: string}>(subtitlePath);
+			const cdnUrl = subtitleRedirect.location ?? subtitleLbUrl;
 			const match = data.languages.find(l => l.subtitles === subtitleLang);
 			return {
 				lang: subtitleLang,
 				label: match?.label ?? subtitleLang,
-				url: subtitleRedirect.location ?? subtitleLbUrl
+				url: toDevSubtitleUrl(cdnUrl)
 			};
 		})
 	);
