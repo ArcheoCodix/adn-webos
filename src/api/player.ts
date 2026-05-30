@@ -16,10 +16,9 @@ export interface PlayerData {
 let cachedPublicKey: string | null = null;
 
 async function getPublicKey(): Promise<string> {
-	if (cachedPublicKey) return cachedPublicKey;
-	// Response is a data URI: "data:application/x-pem-file;base64,<b64>"
-	const dataUri = await getText('/player/publickey');
-	cachedPublicKey = atob(dataUri.split(',')[1].trim());
+	if (!cachedPublicKey) {
+		cachedPublicKey = await getText('/player/publickey');
+	}
 	return cachedPublicKey;
 }
 
