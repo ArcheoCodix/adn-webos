@@ -51,9 +51,16 @@ export async function request<T>(path: string, options: RequestInit = {}, retry 
 	const res = await fetch(`${BASE_URL}${path}`, {...options, headers});
 
 	if (res.status === 401 && retry) {
-		if (!refreshing) refreshing = doRefresh().finally(() => { refreshing = null; });
-		await refreshing;
-		return request<T>(path, options, false);
+		try {
+			if (!refreshing) refreshing = doRefresh().finally(() => { refreshing = null; });
+			await refreshing;
+			return request<T>(path, options, false);
+		} catch (refreshError) {
+			localStorage.removeItem('adn_access_token');
+			localStorage.removeItem('adn_refresh_token');
+			window.dispatchEvent(new CustomEvent('adn:session-expired'));
+			throw refreshError;
+		}
 	}
 
 	if (!res.ok) {

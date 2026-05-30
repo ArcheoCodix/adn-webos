@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react';
+import {useState, useCallback, useEffect} from 'react';
 import {Panels} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
@@ -23,6 +23,12 @@ const AppBase = () => {
 
 	const push = useCallback((entry: NavEntry) => setStack(s => [...s, entry]), []);
 	const pop = useCallback(() => setStack(s => s.length > 1 ? s.slice(0, -1) : s), []);
+
+	useEffect(() => {
+		const handleExpired = () => setStack([{name: 'login'}]);
+		window.addEventListener('adn:session-expired', handleExpired);
+		return () => window.removeEventListener('adn:session-expired', handleExpired);
+	}, []);
 
 	const goHome = useCallback(() => setStack([{name: 'home'}]), []);
 	const goSearch = useCallback(() => push({name: 'search'}), [push]);
