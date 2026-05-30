@@ -28,9 +28,13 @@ async function doRefresh(): Promise<void> {
 	const stored = localStorage.getItem('adn_refresh_token');
 	if (!stored) throw new ApiError(401, 'No refresh token');
 
+	const token = localStorage.getItem('adn_access_token');
 	const res = await fetch(`${BASE_URL}/authentication/refresh`, {
 		method: 'POST',
-		headers: DEFAULT_HEADERS,
+		headers: {
+			...DEFAULT_HEADERS,
+			...(token ? {Authorization: `Bearer ${token}`, 'X-Access-Token': token} : {})
+		},
 		body: JSON.stringify({refreshToken: stored})
 	});
 	if (!res.ok) throw new ApiError(res.status, 'Refresh failed');
