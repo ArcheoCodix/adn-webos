@@ -32,7 +32,7 @@ const HomePanel = ({onShowSelect, onSearchOpen}: HomePanelProps) => {
 		<Panel>
 			<Header title="ADN" onClose={onSearchOpen} />
 			{loading
-				? <Spinner />
+				? <Spinner centered />
 				: <Scroller>
 					<ShowGrid title="Simulcasts en cours" shows={simulcasts} onSelect={onShowSelect} />
 					<ShowGrid title="Catalogue" shows={catalog} onSelect={onShowSelect} />

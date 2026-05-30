@@ -3,6 +3,7 @@ import SandstoneSpinner from '@enact/sandstone/Spinner';
 
 interface SpinnerProps {
 	children?: ReactNode;
+	centered?: boolean;
 }
 
 const Spinner = SandstoneSpinner as unknown as ComponentType<SpinnerProps>;

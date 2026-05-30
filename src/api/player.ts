@@ -22,14 +22,30 @@ async function getPublicKey(): Promise<string> {
 	return cachedPublicKey;
 }
 
-async function fetchSubtitleAsBlobUrl(cdnUrl: string): Promise<string> {
+async function decryptSubtitle(content: string, randomKey: string): Promise<string> {
+	// ADN subtitle format: base64(IV=16bytes) || base64(ciphertext)
+	// IV is always exactly 24 base64 chars (16 bytes), regardless of ciphertext padding
+	// AES-128-CBC key = hex_decode(randomKey + fixed ADN suffix)
+	const ivB64 = content.slice(0, 24);
+	const cipherB64Raw = content.slice(24);
+	const cipherB64 = cipherB64Raw + '='.repeat((4 - cipherB64Raw.length % 4) % 4);
+	const iv = Uint8Array.from(atob(ivB64), c => c.charCodeAt(0));
+	const cipher = Uint8Array.from(atob(cipherB64), c => c.charCodeAt(0));
+	const keyHex = randomKey + '7fac1178830cfe0c';
+	const keyBytes = new Uint8Array(keyHex.match(/.{2}/g)!.map(h => parseInt(h, 16)));
+	const cryptoKey = await crypto.subtle.importKey('raw', keyBytes, {name: 'AES-CBC'}, false, ['decrypt']);
+	const decrypted = await crypto.subtle.decrypt({name: 'AES-CBC', iv}, cryptoKey, cipher);
+	return new TextDecoder().decode(decrypted);
+}
+
+async function fetchSubtitleAsBlobUrl(cdnUrl: string, randomKey: string): Promise<string> {
 	const token = localStorage.getItem('adn_access_token');
 	const res = await fetch(cdnUrl, {
 		headers: token ? {Authorization: `Bearer ${token}`} : {}
 	});
 	if (!res.ok) throw new Error(`Subtitle fetch failed: ${res.status}`);
-	const content = await res.text();
-	return URL.createObjectURL(new Blob([content], {type: 'text/vtt'}));
+	const vttContent = await decryptSubtitle(await res.text(), randomKey);
+	return URL.createObjectURL(new Blob([vttContent], {type: 'text/vtt'}));
 }
 
 function generateHexString(length: number): string {
@@ -93,7 +109,7 @@ export async function getPlayerData(videoId: number): Promise<PlayerData> {
 			const subtitleRedirect = await get<{location?: string}>(subtitlePath);
 			const cdnUrl = subtitleRedirect.location ?? subtitleLbUrl;
 			const match = data.languages.find(l => l.subtitles === subtitleLang);
-			const url = await fetchSubtitleAsBlobUrl(cdnUrl);
+			const url = await fetchSubtitleAsBlobUrl(cdnUrl, randomKey);
 			return {lang: subtitleLang, label: match?.label ?? subtitleLang, url};
 		})
 	);

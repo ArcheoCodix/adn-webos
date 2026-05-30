@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import {Panel} from '@enact/sandstone/Panels';
 import VideoPlayer from '../components/VideoPlayer';
 import Spinner from '../components/Spinner';
@@ -26,6 +26,31 @@ const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
 			})
 			.finally(() => setLoading(false));
 	}, [videoId]);
+
+	const forceSubtitles = useCallback(() => {
+		const video = document.querySelector('video');
+		if (!video) return;
+		const tracks = video.textTracks;
+		// Prefer vostf (original with French subs), fallback to first track
+		let preferred = 0;
+		for (let i = 0; i < tracks.length; i++) {
+			if (tracks[i].label === 'vostf' || tracks[i].language === 'vostf') {
+				preferred = i;
+				break;
+			}
+		}
+		for (let i = 0; i < tracks.length; i++) {
+			tracks[i].mode = i === preferred ? 'showing' : 'hidden';
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!playerData?.subtitles.length) return;
+		forceSubtitles();
+		const video = document.querySelector('video');
+		video?.addEventListener('loadedmetadata', forceSubtitles);
+		return () => video?.removeEventListener('loadedmetadata', forceSubtitles);
+	}, [playerData, forceSubtitles]);
 
 	if (loading) {
 		return <Panel><Spinner centered /></Panel>;
