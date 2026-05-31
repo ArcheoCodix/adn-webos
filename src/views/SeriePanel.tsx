@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback, useMemo} from 'react';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Scroller from '@enact/sandstone/Scroller';
@@ -33,7 +33,7 @@ const SeriePanel = ({show, onEpisodeSelect, onBack}: SeriePanelProps) => {
 		onEpisodeSelect?.(videoId, title);
 	}, [onEpisodeSelect]);
 
-	const allVideos = seasons.flatMap(s => s.videos);
+	const allVideos = useMemo(() => seasons.flatMap(s => s.videos), [seasons]);
 
 	if (loading) return <Panel><Spinner /></Panel>;
 
