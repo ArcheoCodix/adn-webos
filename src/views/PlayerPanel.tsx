@@ -27,11 +27,24 @@ const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
 			.finally(() => setLoading(false));
 	}, [videoId]);
 
+	const adjustCuePositions = useCallback(() => {
+		const video = document.querySelector('video');
+		if (!video) return;
+		for (let i = 0; i < video.textTracks.length; i++) {
+			const cues = video.textTracks[i].cues;
+			if (!cues) continue;
+			for (let j = 0; j < cues.length; j++) {
+				const cue = cues[j] as VTTCue;
+				cue.snapToLines = false;
+				cue.line = 95;
+			}
+		}
+	}, []);
+
 	const forceSubtitles = useCallback(() => {
 		const video = document.querySelector('video');
 		if (!video) return;
 		const tracks = video.textTracks;
-		// Prefer vostf (original with French subs), fallback to first track
 		let preferred = 0;
 		for (let i = 0; i < tracks.length; i++) {
 			if (tracks[i].label === 'vostf' || tracks[i].language === 'vostf') {
@@ -47,10 +60,17 @@ const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
 	useEffect(() => {
 		if (!playerData?.subtitles.length) return;
 		forceSubtitles();
+		const trackEls = Array.from(document.querySelectorAll('track'));
+		trackEls.forEach(el => el.addEventListener('load', adjustCuePositions));
+		// In case tracks are already loaded
+		adjustCuePositions();
 		const video = document.querySelector('video');
 		video?.addEventListener('loadedmetadata', forceSubtitles);
-		return () => video?.removeEventListener('loadedmetadata', forceSubtitles);
-	}, [playerData, forceSubtitles]);
+		return () => {
+			trackEls.forEach(el => el.removeEventListener('load', adjustCuePositions));
+			video?.removeEventListener('loadedmetadata', forceSubtitles);
+		};
+	}, [playerData, forceSubtitles, adjustCuePositions]);
 
 	if (loading) {
 		return <Panel><Spinner centered /></Panel>;
