@@ -6,7 +6,7 @@ import ImageItem from '@enact/sandstone/ImageItem';
 
 import type {Show} from '../../types/adn';
 
-const ITEM_WIDTH = scale(300);
+const ITEM_WIDTH = scale(360);
 const ITEM_HEIGHT = scale(420);
 
 interface ShowGridProps {
@@ -29,6 +29,7 @@ const ShowGrid = ({title, shows = [], onSelect}: ShowGridProps) => {
 				data-index={index}
 				src={show.image}
 				onClick={handleClick}
+				style={{width: ITEM_WIDTH, height: ITEM_HEIGHT}}
 			>
 				{show.title}
 			</ImageItem>
