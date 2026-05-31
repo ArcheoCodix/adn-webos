@@ -1,52 +1,54 @@
-import {memo, useCallback} from 'react';
+import {useCallback} from 'react';
+import {VirtualList} from '@enact/sandstone/VirtualList';
+import {scale} from '@enact/ui/resolution';
 import Heading from '../Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
-import Scroller from '@enact/sandstone/Scroller';
 
 import type {Show} from '../../types/adn';
 
-interface ShowItemProps {
-	show: Show;
-	onSelect?: (show: Show) => void;
-}
-
-const ShowItem = memo(({show, onSelect}: ShowItemProps) => {
-	const handleClick = useCallback(() => onSelect?.(show), [show, onSelect]);
-	return (
-		<ImageItem
-			src={show.image}
-			style={{minWidth: '300px', height: '400px'}}
-			onClick={handleClick}
-		>
-			{show.title}
-		</ImageItem>
-	);
-});
-
-ShowItem.displayName = 'ShowItem';
+const ITEM_WIDTH = scale(300);
+const ITEM_HEIGHT = scale(420);
 
 interface ShowGridProps {
 	title?: string;
 	shows?: Show[];
 	onSelect?: (show: Show) => void;
-	limit?: number;
 }
 
-const ShowGrid = ({title, shows = [], onSelect, limit}: ShowGridProps) => {
-	const visible = limit ? shows.slice(0, limit) : shows;
+const ShowGrid = ({title, shows = [], onSelect}: ShowGridProps) => {
+	const handleClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
+		const idx = parseInt((e.currentTarget as HTMLElement).dataset.index ?? '0', 10);
+		if (shows[idx]) onSelect?.(shows[idx]);
+	}, [shows, onSelect]);
 
-	if (!visible.length) return null;
+	const renderItem = useCallback(({index, ...rest}: {index: number; [key: string]: unknown}) => {
+		const show = shows[index];
+		return (
+			<ImageItem
+				{...rest}
+				data-index={index}
+				src={show.image}
+				onClick={handleClick}
+			>
+				{show.title}
+			</ImageItem>
+		);
+	}, [shows, handleClick]);
+
+	if (!shows.length) return null;
 
 	return (
 		<div>
 			{title && <Heading size="small">{title}</Heading>}
-			<Scroller direction="horizontal">
-				<div style={{display: 'flex', gap: '1rem'}}>
-					{visible.map(show => (
-						<ShowItem key={show.id} show={show} onSelect={onSelect} />
-					))}
-				</div>
-			</Scroller>
+			<VirtualList
+				direction="horizontal"
+				dataSize={shows.length}
+				itemSize={ITEM_WIDTH}
+				itemRenderer={renderItem}
+				style={{height: ITEM_HEIGHT}}
+				horizontalScrollbar="hidden"
+				verticalScrollbar="hidden"
+			/>
 		</div>
 	);
 };
