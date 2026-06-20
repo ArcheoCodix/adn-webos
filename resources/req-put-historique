@@ -1,0 +1,22 @@
+curl 'https://gw.api.animationdigitalnetwork.com/viewing/history/video/31422' \
+  -X 'PUT' \
+  -H 'accept: application/json' \
+  -H 'accept-language: fr' \
+  -H 'content-type: application/json' \
+  -H 'origin: https://animationdigitalnetwork.com' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://animationdigitalnetwork.com/' \
+  -H 'sec-ch-ua: "Brave";v="149", "Chromium";v="149", "Not)A;Brand";v="24"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'sec-gpc: 1' \
+  -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36' \
+  -H 'x-i18n-platform: 1' \
+  -H 'x-player-access-token: ' \
+  -H 'x-profile-id: 1' \
+  -H 'x-source: Web' \
+  -H 'x-target-distribution: fr' \
+  --data-raw '{"guid":"767239022ae7474737cfc697a80a6d52","language":"vostf","quality":"auto","viewtime":1,"stoptime":1,"duration":1420,"source":"Web","distribution":"fr"}'
