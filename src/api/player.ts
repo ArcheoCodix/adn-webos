@@ -38,13 +38,27 @@ async function decryptSubtitle(content: string, randomKey: string): Promise<stri
 	return new TextDecoder().decode(decrypted);
 }
 
+function normalizeVtt(vtt: string, margin = 5): string {
+	return vtt
+		// align:middle → align:center (middle n'est pas valide en WebVTT)
+		.replace(/\balign:middle\b/gi, 'align:center')
+		// position:X%,middle → position:X% (middle n'est pas un alignement de position valide)
+		.replace(/\b(position:\d+(?:\.\d+)?)%,middle\b/gi, '$1%')
+		// line:X%[,alignment] → line:Y% avec marge, sans alignement (,start/,end non universellement supporté)
+		.replace(/\bline:(\d+(?:\.\d+)?)%(?:,[a-z]+)?/gi, (_, pct) => {
+			const p = parseFloat(pct);
+			const fixed = p > 50 ? Math.min(p, 100 - margin) : Math.max(p, margin);
+			return `line:${fixed}%`;
+		});
+}
+
 async function fetchSubtitleAsBlobUrl(cdnUrl: string, randomKey: string): Promise<string> {
 	const token = localStorage.getItem('adn_access_token');
 	const res = await fetch(cdnUrl, {
 		headers: token ? {Authorization: `Bearer ${token}`} : {}
 	});
 	if (!res.ok) throw new Error(`Subtitle fetch failed: ${res.status}`);
-	const vttContent = await decryptSubtitle(await res.text(), randomKey);
+	const vttContent = normalizeVtt(await decryptSubtitle(await res.text(), randomKey));
 	return URL.createObjectURL(new Blob([vttContent], {type: 'text/vtt'}));
 }
 
