@@ -38,12 +38,12 @@ async function decryptSubtitle(content: string, randomKey: string): Promise<stri
 	return new TextDecoder().decode(decrypted);
 }
 
-function normalizeVtt(vtt: string, margin = 5): string {
+function normalizeVtt(vtt: string, margin = 10): string {
 	return vtt
 		// align:middle → align:center (middle n'est pas valide en WebVTT)
 		.replace(/\balign:middle\b/gi, 'align:center')
-		// position:X%,middle → position:X% (middle n'est pas un alignement de position valide)
-		.replace(/\b(position:\d+(?:\.\d+)?)%,middle\b/gi, '$1%')
+		// position:X%,middle → position:X%,center (middle invalide, center est le terme spec)
+		.replace(/\b(position:\d+(?:\.\d+)?)%,middle\b/gi, '$1%,center')
 		// line:X%[,alignment] → line:Y% avec marge, sans alignement (,start/,end non universellement supporté)
 		.replace(/\bline:(\d+(?:\.\d+)?)%(?:,[a-z]+)?/gi, (_, pct) => {
 			const p = parseFloat(pct);

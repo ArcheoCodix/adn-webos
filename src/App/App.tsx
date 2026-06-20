@@ -10,6 +10,8 @@ import SeriePanel from '../views/SeriePanel';
 import PlayerPanel from '../views/PlayerPanel';
 import type {Show} from '../types/adn';
 
+import './App.module.less'
+
 type NavEntry =
 	| {name: 'login'}
 	| {name: 'home'}

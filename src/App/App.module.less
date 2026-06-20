@@ -1,16 +1,71 @@
+@font-face {
+	font-family: "Liberation Sans";
+	src: url("../../resources/fonts/LiberationSans-Regular.ttf");
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: "Liberation Sans";
+	src: url("../../resources/fonts/LiberationSans-Bold.ttf");
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Liberation Sans";
+	src: url("../../resources/fonts/LiberationSans-Italic.ttf");
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Liberation Sans";
+	src: url("../../resources/fonts/LiberationSans-BoldItalic.ttf");
+	font-weight: bold;
+	font-style: italic;
+}
+
 :global {
 	::cue {
-		font-family: Verdana, sans-serif;
+		font-family: "Liberation Sans", sans-serif;
+		font-weight: 700;
+		font-size: 1.1em;
+		line-height: 1.2;
 		color: #fff;
 		background-color: transparent;
+		/* Contour 5px : 32 ombres uniformément réparties sur un cercle (2πr) */
 		text-shadow:
-			-2px -2px 0 #000,
-			 0   -2px 0 #000,
-			 2px -2px 0 #000,
-			-2px  0   0 #000,
-			 2px  0   0 #000,
-			-2px  2px 0 #000,
-			 0    2px 0 #000,
-			 2px  2px 0 #000;
+			5.0px 0.0px 0 #000,
+			4.9px 0.98px 0 #000,
+			4.62px 1.91px 0 #000,
+			4.16px 2.78px 0 #000,
+			3.54px 3.54px 0 #000,
+			2.78px 4.16px 0 #000,
+			1.91px 4.62px 0 #000,
+			0.98px 4.9px 0 #000,
+			0.0px 5.0px 0 #000,
+			-0.98px 4.9px 0 #000,
+			-1.91px 4.62px 0 #000,
+			-2.78px 4.16px 0 #000,
+			-3.54px 3.54px 0 #000,
+			-4.16px 2.78px 0 #000,
+			-4.62px 1.91px 0 #000,
+			-4.9px 0.98px 0 #000,
+			-5.0px 0.0px 0 #000,
+			-4.9px -0.98px 0 #000,
+			-4.62px -1.91px 0 #000,
+			-4.16px -2.78px 0 #000,
+			-3.54px -3.54px 0 #000,
+			-2.78px -4.16px 0 #000,
+			-1.91px -4.62px 0 #000,
+			-0.98px -4.9px 0 #000,
+			-0.0px -5.0px 0 #000,
+			0.98px -4.9px 0 #000,
+			1.91px -4.62px 0 #000,
+			2.78px -4.16px 0 #000,
+			3.54px -3.54px 0 #000,
+			4.16px -2.78px 0 #000,
+			4.62px -1.91px 0 #000,
+			4.9px -0.98px 0 #000;
 	}
 }
