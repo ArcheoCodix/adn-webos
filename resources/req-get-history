@@ -1,0 +1,671 @@
+curl 'https://gw.api.animationdigitalnetwork.com/viewing/history?merged=true&onlyNext=true' \
+  -H 'accept: application/json' \
+  -H 'accept-language: fr' \
+  -H 'authorization: Bearer ' \
+  -H 'baggage: sentry-environment=production,sentry-release=2.16.0,sentry-public_key=34211bbc6d894dbbb0be08e0f4f90470,sentry-trace_id=e73f9e85c1194b7abf269379bb48cc5a,sentry-transaction=%2F,sentry-sampled=false,sentry-sample_rand=0.8323741755854847,sentry-sample_rate=0.1' \
+  -H 'origin: https://animationdigitalnetwork.com' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://animationdigitalnetwork.com/' \
+  -H 'sec-ch-ua: "Not;A=Brand";v="8", "Chromium";v="150", "Brave";v="150"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'sec-gpc: 1' \
+  -H 'sentry-trace: ' \
+  -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36' \
+  -H 'x-i18n-platform: 1' \
+  -H 'x-profile-id: 1' \
+  -H 'x-source: Web' \
+  -H 'x-target-distribution: fr'
+
+{
+    "videos": [
+        {
+            "id": 22161,
+            "title": "Farming Life in Another World - Épisode 1",
+            "name": "L'Outil Divin Agricole",
+            "number": "Épisode 1",
+            "shortNumber": "1",
+            "season": "1",
+            "reference": "farminganotherworld_tv_0001",
+            "type": "EPS",
+            "order": 1,
+            "image": "https://media.animationdigitalnetwork.com/images/video/ef17124e-8448-4485-ad36-14c91875e249/thumbnail",
+            "image2x": "https://media.animationdigitalnetwork.com/images/video/ef17124e-8448-4485-ad36-14c91875e249/thumbnail",
+            "summary": "À seulement 39 ​ans, Hiraku Machio meurt sur son lit d’hôpital. Il rencontre Dieu, qui lui fait une offre peu commune ​: une seconde vie dans laquelle il sera fermier, avec un corps que la maladie ne peut pas toucher. Lorsqu’il rouvre les yeux, Hiraku se trouve au beau milieu d’une forêt. Il va y créer sa nouvelle vie à l’aide d’un outil tout-puissant, l’Outil Divin Agricole.",
+            "releaseDate": "2023-01-06T13:00:00Z",
+            "duration": 1435,
+            "user": {
+                "id": 178688,
+                "stoptime": 890,
+                "watchDate": "2026-07-29T20:26:26Z",
+                "isFullyWatched": false
+            },
+            "url": "https://animationdigitalnetwork.com/video/1008-farming-life-in-another-world/22161-episode-1",
+            "urlPath": "/video/1008-farming-life-in-another-world/22161-episode-1",
+            "embeddedUrl": "https://animationdigitalnetwork.com/embedded/1008-farming-life-in-another-world/22161",
+            "languages": [
+                "vostf",
+                "vf"
+            ],
+            "qualities": [
+                "fhd",
+                "hd",
+                "sd"
+            ],
+            "rating": 4.7,
+            "ratingsCount": 213,
+            "commentsCount": 60,
+            "available": true,
+            "download": false,
+            "free": false,
+            "freeWithAds": true,
+            "show": {
+                "id": 1008,
+                "title": "Farming Life in Another World",
+                "type": "EPS",
+                "originalTitle": "Isekai Nonbiri Nouka",
+                "shortTitle": "Farming Life in Another World",
+                "reference": "farminganotherworld_tv",
+                "age": "12+",
+                "languages": [
+                    "vostf",
+                    "vf"
+                ],
+                "summary": "Alors qu’il tente de sauver de la faillite l’entreprise dans laquelle il travaille, Hiraku Machio, 39 ans, meurt de surmenage. À sa demande, une divinité lui offre l’opportunité de renaître dans un autre monde, sous les traits d’un jeune fermier, lui octroyant également un outil agricole surpuissant. Dès lors, Hiraku se donne corps et âme dans sa nouvelle activité, si bien que les denrées qu’il produit sont d’une qualité incomparable. Une nouvelle vie, pleine de rencontres inattendues, s’offre à lui !",
+                "image": "https://image.animationdigitalnetwork.com/license/farminganotherworld/tv/web/affiche_175x250.jpg",
+                "image2x": "https://image.animationdigitalnetwork.com/license/farminganotherworld/tv/web/affiche_350x500.jpg",
+                "imageHorizontal": "https://image.animationdigitalnetwork.com/license/farminganotherworld/tv/web/license_320x180.jpg",
+                "imageHorizontal2x": "https://image.animationdigitalnetwork.com/license/farminganotherworld/tv/web/license_640x360.jpg",
+                "url": "https://animationdigitalnetwork.com/video/1008-farming-life-in-another-world",
+                "urlPath": "/video/1008-farming-life-in-another-world",
+                "episodeCount": 0,
+                "genres": [
+                    "Animation japonaise",
+                    "Aventure",
+                    "Comédie",
+                    "Fantastique",
+                    "Romance",
+                    "Isekai",
+                    "Tranche de vie"
+                ],
+                "copyright": "©Kinosuke Naito⁄Farming Life in Another World Production Committee",
+                "rating": 3,
+                "ratingsCount": 10,
+                "commentsCount": 0,
+                "qualities": [],
+                "distributions": "fr,de,pl",
+                "simulcast": false,
+                "free": false,
+                "available": true,
+                "download": false,
+                "nextVideoReleaseDate": null,
+                "basedOn": "Light Novel",
+                "tagline": "",
+                "firstReleaseYear": "2023",
+                "productionStudio": "Zero-G",
+                "countryOfOrigin": "Japon",
+                "productionTeam": [
+                    {
+                        "role": "Réalisateur",
+                        "name": "Ryôichi Kuraya"
+                    },
+                    {
+                        "role": "Scénariste",
+                        "name": "Yoshiko Saitô"
+                    },
+                    {
+                        "role": "Auteur",
+                        "name": "Kinosuke Naito"
+                    },
+                    {
+                        "role": "Character designer original",
+                        "name": "Yasumo"
+                    },
+                    {
+                        "role": "Compositeur",
+                        "name": "Yasuharu Takanashi, Johannes Nilsson"
+                    },
+                    {
+                        "role": "Directeur artistique",
+                        "name": "Hirofumi Sakagami"
+                    }
+                ],
+                "indexable": true
+            },
+            "indexable": true
+        },
+        {
+            "id": 17056,
+            "title": "How a Realist Hero Rebuilt the Kingdom - Épisode 8",
+            "name": "Le Grondement de la forêt",
+            "number": "Épisode 8",
+            "shortNumber": "8",
+            "season": "1",
+            "reference": "realisthero_tv_0008",
+            "type": "EPS",
+            "order": 8,
+            "image": "https://media.animationdigitalnetwork.com/images/video/2e7393c7-ac58-4a62-ad87-83fec4f8c7f5/thumbnail",
+            "image2x": "https://media.animationdigitalnetwork.com/images/video/2e7393c7-ac58-4a62-ad87-83fec4f8c7f5/thumbnail",
+            "summary": "Le projet de construction de Venetinova est entamé, et Sôma affecte l'armée royale à la construction des routes qui relieront la future cité portuaire au reste du pays. Alors que le jeune roi visite le chantier d'une de ces routes, Aisha reçoit une terrible missive de la part des elfes noirs de la Forêt sacrée…",
+            "releaseDate": "2021-08-21T17:30:00Z",
+            "duration": 1422,
+            "user": {
+                "id": 178688,
+                "stoptime": 1151,
+                "watchDate": "2026-07-19T19:01:47Z",
+                "isFullyWatched": false
+            },
+            "url": "https://animationdigitalnetwork.com/video/754-how-a-realist-hero-rebuilt-the-kingdom/17056-episode-8",
+            "urlPath": "/video/754-how-a-realist-hero-rebuilt-the-kingdom/17056-episode-8",
+            "embeddedUrl": "https://animationdigitalnetwork.com/embedded/754-how-a-realist-hero-rebuilt-the-kingdom/17056",
+            "languages": [
+                "vostf"
+            ],
+            "qualities": [
+                "fhd",
+                "hd",
+                "sd"
+            ],
+            "rating": 4.8,
+            "ratingsCount": 93,
+            "commentsCount": 14,
+            "available": true,
+            "download": false,
+            "free": false,
+            "freeWithAds": false,
+            "show": {
+                "id": 754,
+                "title": "How a Realist Hero Rebuilt the Kingdom",
+                "type": "EPS",
+                "originalTitle": "Genjitsu Shugi Yuusha no Oukoku Saikenki",
+                "shortTitle": "How a Realist Hero Rebuilt the Kingdom",
+                "reference": "realisthero_tv",
+                "age": "12+",
+                "languages": [
+                    "vostf"
+                ],
+                "summary": "Kazuya Sôma est un jeune homme sans histoire aspirant à une vie tranquille. Peu après avoir perdu son grand-père, la seule famille qu’il lui restait, il se retrouve propulsé dans un autre monde. Il apprend alors qu’il est le héros invoqué par le royaume d’Elfrieden pour venir en aide au pays. Hélas, il va vite s’apercevoir que son destin s’annonce tout sauf héroïque…",
+                "image": "https://image.animationdigitalnetwork.com/license/realisthero/tv/web/affiche_175x250.jpg",
+                "image2x": "https://image.animationdigitalnetwork.com/license/realisthero/tv/web/affiche_350x500.jpg",
+                "imageHorizontal": "https://image.animationdigitalnetwork.com/license/realisthero/tv/web/license_320x180.jpg",
+                "imageHorizontal2x": "https://image.animationdigitalnetwork.com/license/realisthero/tv/web/license_640x360.jpg",
+                "url": "https://animationdigitalnetwork.com/video/754-how-a-realist-hero-rebuilt-the-kingdom",
+                "urlPath": "/video/754-how-a-realist-hero-rebuilt-the-kingdom",
+                "episodeCount": 0,
+                "genres": [
+                    "Animation japonaise",
+                    "Action",
+                    "Comédie",
+                    "Drame",
+                    "Fantastique",
+                    "Heroic Fantasy",
+                    "Romance"
+                ],
+                "copyright": "© Dozeumaru, OVER-LAP / Realist Hero Production Committee",
+                "rating": 3,
+                "ratingsCount": 10,
+                "commentsCount": 0,
+                "qualities": [],
+                "distributions": "fr,de",
+                "simulcast": false,
+                "free": false,
+                "available": true,
+                "download": false,
+                "nextVideoReleaseDate": null,
+                "basedOn": "Light Novel",
+                "tagline": null,
+                "firstReleaseYear": "2021",
+                "productionStudio": "J.C. Staff",
+                "countryOfOrigin": "Japon",
+                "productionTeam": [
+                    {
+                        "role": "Réalisateur",
+                        "name": "Takashi Watanabe"
+                    },
+                    {
+                        "role": "Scénariste",
+                        "name": "Go Zappa"
+                    },
+                    {
+                        "role": "Auteur",
+                        "name": "Dozeumaru"
+                    },
+                    {
+                        "role": "Character designer original",
+                        "name": "Fuyuyuki"
+                    },
+                    {
+                        "role": "Compositeur",
+                        "name": "Akiyuki Tateyama"
+                    }
+                ],
+                "indexable": true
+            },
+            "indexable": true
+        },
+        {
+            "id": 31423,
+            "title": "Yowayowa Sensei - Épisode 2",
+            "name": "La prof après les cours",
+            "number": "Épisode 2",
+            "shortNumber": "2",
+            "season": "1",
+            "reference": "yowayowasensei_tv_0002",
+            "type": "EPS",
+            "order": 2,
+            "image": "https://media.animationdigitalnetwork.com/images/video/fdc42a14-efaf-482a-bb26-7aa71ba73849/thumbnail",
+            "image2x": "https://media.animationdigitalnetwork.com/images/video/fdc42a14-efaf-482a-bb26-7aa71ba73849/thumbnail",
+            "summary": "Alors qu’Akihito profite de son temps seul à seul avec sa prof principale après les cours, une de ses camarades vient lui mettre des bâtons dans les roues…",
+            "releaseDate": "2026-04-18T13:00:00Z",
+            "duration": 1420,
+            "user": {
+                "id": 178688,
+                "stoptime": 662,
+                "watchDate": "2026-06-20T13:22:50Z",
+                "isFullyWatched": false
+            },
+            "url": "https://animationdigitalnetwork.com/video/1382-yowayowa-sensei/31423-episode-2",
+            "urlPath": "/video/1382-yowayowa-sensei/31423-episode-2",
+            "embeddedUrl": "https://animationdigitalnetwork.com/embedded/1382-yowayowa-sensei/31423",
+            "languages": [
+                "vostf"
+            ],
+            "qualities": [
+                "fhd",
+                "hd",
+                "sd"
+            ],
+            "rating": 4.6,
+            "ratingsCount": 17,
+            "commentsCount": 5,
+            "available": true,
+            "download": false,
+            "free": false,
+            "freeWithAds": false,
+            "show": {
+                "id": 1382,
+                "title": "Yowayowa Sensei",
+                "type": "EPS",
+                "originalTitle": "Yowayowa Sensei",
+                "shortTitle": null,
+                "reference": "yowayowasensei_tv",
+                "age": "16+",
+                "languages": [
+                    "vostf"
+                ],
+                "summary": "Hiyori Hiwamura, enseignante chétive et réservée, peine à s’affirmer devant ses élèves. Cependant, malgré sa douceur apparente, toute l’école semble convaincue qu’elle profère des malédictions à tout va lorsqu’elle est de mauvaise humeur. Un jour, Akihito Abikura, étudiant en deuxième année au caractère bien trempé, découvre une facette totalement inattendue de sa personnalité…",
+                "image": "https://image.animationdigitalnetwork.com/license/yowayowasensei/tv/web/affiche_175x250.jpg",
+                "image2x": "https://image.animationdigitalnetwork.com/license/yowayowasensei/tv/web/affiche_350x500.jpg",
+                "imageHorizontal": "https://image.animationdigitalnetwork.com/license/yowayowasensei/tv/web/license_320x180.jpg",
+                "imageHorizontal2x": "https://image.animationdigitalnetwork.com/license/yowayowasensei/tv/web/license_640x360.jpg",
+                "url": "https://animationdigitalnetwork.com/video/1382-yowayowa-sensei",
+                "urlPath": "/video/1382-yowayowa-sensei",
+                "episodeCount": 0,
+                "genres": [
+                    "Animation japonaise",
+                    "Comédie",
+                    "Ecchi",
+                    "Romance",
+                    "Scolaire"
+                ],
+                "copyright": "©Kamio Fukuchi, KODANSHI/Yowayowa Sensei\" Production Committee",
+                "rating": 3,
+                "ratingsCount": 10,
+                "commentsCount": 0,
+                "qualities": [],
+                "distributions": "fr,de,pl",
+                "simulcast": false,
+                "free": false,
+                "available": true,
+                "download": false,
+                "nextVideoReleaseDate": null,
+                "basedOn": "Manga",
+                "tagline": "",
+                "firstReleaseYear": "2026",
+                "productionStudio": "Brains Base",
+                "countryOfOrigin": "Japon",
+                "productionTeam": [
+                    {
+                        "role": "Réalisateur",
+                        "name": "Hiroshi Ishiodori"
+                    },
+                    {
+                        "role": "Scénariste",
+                        "name": "Yoshifumi Fukushima"
+                    },
+                    {
+                        "role": "Mangaka",
+                        "name": "Kamio Fukuchi"
+                    },
+                    {
+                        "role": "Compositeur",
+                        "name": "Akifumi Tada, Rina Tayama"
+                    },
+                    {
+                        "role": "Character designer",
+                        "name": "Naoki Aisaka"
+                    }
+                ],
+                "indexable": true
+            },
+            "indexable": true
+        },
+        {
+            "id": 25200,
+            "title": "Dead Cells : Immortalis - Épisode 3",
+            "name": "Épisode 3",
+            "number": "Épisode 3",
+            "shortNumber": "3",
+            "season": "1",
+            "reference": "deadcells_tv_0003",
+            "type": "EPS",
+            "order": 4,
+            "image": "https://media.animationdigitalnetwork.com/images/video/2e7f8f9f-924c-44b0-af8d-9ffea9b9b1b9/thumbnail",
+            "image2x": "https://media.animationdigitalnetwork.com/images/video/2e7f8f9f-924c-44b0-af8d-9ffea9b9b1b9/thumbnail",
+            "summary": "Grâce à Paulo, nos deux compères ont enfin pu remonter à la surface et continuent activement de chercher l’Épée de la Vérité. Pendant ce temps, le Roi-Démon fait appel à ses preux chevaliers, la Main du Roi, et les somment de traquer son ennemi de toujours.",
+            "releaseDate": "2024-06-19T07:00:00Z",
+            "duration": 496,
+            "user": {
+                "id": 178688,
+                "stoptime": 42,
+                "watchDate": "2024-09-08T09:42:23Z",
+                "isFullyWatched": false
+            },
+            "url": "https://animationdigitalnetwork.com/video/1161-dead-cells-immortalis/25200-episode-3",
+            "urlPath": "/video/1161-dead-cells-immortalis/25200-episode-3",
+            "embeddedUrl": "https://animationdigitalnetwork.com/embedded/1161-dead-cells-immortalis/25200",
+            "languages": [
+                "vf"
+            ],
+            "qualities": [
+                "fhd",
+                "hd",
+                "sd"
+            ],
+            "rating": 4.5,
+            "ratingsCount": 22,
+            "commentsCount": 6,
+            "available": true,
+            "download": false,
+            "free": false,
+            "freeWithAds": true,
+            "show": {
+                "id": 1161,
+                "title": "Dead Cells : Immortalis",
+                "type": "EPS",
+                "originalTitle": "Dead Cells : Immortalis",
+                "shortTitle": "Dead Cells : Immortalis",
+                "reference": "deadcells_tv",
+                "age": "16+",
+                "languages": [
+                    "vf"
+                ],
+                "summary": "Sur une île maudite, rongée par une étrange peste appelée « le Mal-Être », un roi fait développer un remède par ses alchimistes afin de sauver son peuple de la maladie… mais l'antidote transforme les habitants du royaume en monstres ! Il décide alors de créer une armée en utilisant ce dernier, mais très vite, la situation devient incontrôlable…\nUne prophétie révèle l’avènement d’un héros immortel, qui ramènera la paix en tuant le Roi Démon, responsable de ce chaos. Il sera du devoir de Laure Esposito, jeune gardienne de l'ordre de la Vérité, de trouver cet élu à tête de flamme et de sauver le monde de sa destruction. Grand bien lui fasse, car pour l'élu, trouver le remède au Mal-Être : il s’en tape. Ramener la paix ? Il veut surtout qu’on la lui foute !",
+                "image": "https://image.animationdigitalnetwork.com/license/deadcells/tv/web/affiche_175x250.jpg",
+                "image2x": "https://image.animationdigitalnetwork.com/license/deadcells/tv/web/affiche_350x500.jpg",
+                "imageHorizontal": "https://image.animationdigitalnetwork.com/license/deadcells/tv/web/license_320x180.jpg",
+                "imageHorizontal2x": "https://image.animationdigitalnetwork.com/license/deadcells/tv/web/license_640x360.jpg",
+                "url": "https://animationdigitalnetwork.com/video/1161-dead-cells-immortalis",
+                "urlPath": "/video/1161-dead-cells-immortalis",
+                "episodeCount": 0,
+                "genres": [
+                    "Animation franco-belge",
+                    "Aventure",
+                    "Fantastique",
+                    "Violence"
+                ],
+                "copyright": "© BOBBYPILLS / ADN",
+                "rating": 3,
+                "ratingsCount": 10,
+                "commentsCount": 0,
+                "qualities": [],
+                "distributions": "fr,de",
+                "simulcast": false,
+                "free": true,
+                "available": true,
+                "download": false,
+                "nextVideoReleaseDate": null,
+                "basedOn": "Jeu Vidéo",
+                "tagline": null,
+                "firstReleaseYear": "2024",
+                "productionStudio": "Bobbypills",
+                "countryOfOrigin": "France",
+                "productionTeam": [
+                    {
+                        "role": "Réalisateur",
+                        "name": "Gaspard Sumeire"
+                    }
+                ],
+                "indexable": true
+            },
+            "indexable": true
+        },
+        {
+            "id": 25958,
+            "title": "Oshi no Ko - Épisode 12",
+            "name": "Tokyo Blade",
+            "number": "Épisode 12",
+            "shortNumber": "12",
+            "season": "2",
+            "reference": "oshinoko_tv_0012",
+            "type": "EPS",
+            "order": 14,
+            "image": "https://media.animationdigitalnetwork.com/images/video/bb0bf17e-f002-4c05-a58e-16ab94560eee/thumbnail",
+            "image2x": "https://media.animationdigitalnetwork.com/images/video/bb0bf17e-f002-4c05-a58e-16ab94560eee/thumbnail",
+            "summary": "Alors que Ruby marche sur les traces de sa mère, Aqua poursuit sa quête de vengeance en intégrant le casting de « Tokyo Blade », pièce de théâtre adaptée du célèbre manga et mise en scène par Toshirô Kindaichi, le gérant de l'ancienne troupe d'Aï…",
+            "releaseDate": "2024-07-03T15:00:00Z",
+            "duration": 1524,
+            "user": {
+                "id": 178688,
+                "stoptime": 0,
+                "watchDate": null,
+                "isFullyWatched": false
+            },
+            "url": "https://animationdigitalnetwork.com/video/1034-oshi-no-ko/25958-episode-12",
+            "urlPath": "/video/1034-oshi-no-ko/25958-episode-12",
+            "embeddedUrl": "https://animationdigitalnetwork.com/embedded/1034-oshi-no-ko/25958",
+            "languages": [
+                "vf"
+            ],
+            "qualities": [
+                "fhd",
+                "hd",
+                "sd"
+            ],
+            "rating": 4.9,
+            "ratingsCount": 211,
+            "commentsCount": 59,
+            "available": true,
+            "download": false,
+            "free": false,
+            "freeWithAds": true,
+            "show": {
+                "id": 1034,
+                "title": "Oshi no Ko",
+                "type": "EPS",
+                "originalTitle": "Oshi no Ko",
+                "shortTitle": "Oshi no Ko",
+                "reference": "oshinoko_tv",
+                "age": "12+",
+                "languages": [
+                    "vf"
+                ],
+                "summary": "Gorô Amemiya, un obstétricien exerçant dans un hôpital de campagne, n’a d’yeux que pour la sublime Aï Hoshino, une célèbre et talentueuse idole. Au détour d’une rencontre fortuite, la découverte d’un terrible secret va changer leur destin à tout jamais…",
+                "image": "https://image.animationdigitalnetwork.com/license/oshinoko/tv/web/affiche_175x250.jpg",
+                "image2x": "https://image.animationdigitalnetwork.com/license/oshinoko/tv/web/affiche_350x500.jpg",
+                "imageHorizontal": "https://image.animationdigitalnetwork.com/license/oshinoko/tv/web/license_320x180.jpg",
+                "imageHorizontal2x": "https://image.animationdigitalnetwork.com/license/oshinoko/tv/web/license_640x360.jpg",
+                "url": "https://animationdigitalnetwork.com/video/1034-oshi-no-ko",
+                "urlPath": "/video/1034-oshi-no-ko",
+                "episodeCount": 0,
+                "genres": [
+                    "Slice of Life",
+                    "Tranche de vie",
+                    "Idols",
+                    "Animation japonaise",
+                    "Drame",
+                    "Musical",
+                    "Psychologie",
+                    "Seinen"
+                ],
+                "copyright": "©Aka Akasaka x Mengo Yokoyari/Shueisha, \"OSHI NO KO\" Partners",
+                "rating": 3,
+                "ratingsCount": 10,
+                "commentsCount": 0,
+                "qualities": [],
+                "distributions": "fr",
+                "simulcast": false,
+                "free": false,
+                "available": true,
+                "download": false,
+                "nextVideoReleaseDate": null,
+                "basedOn": "Manga",
+                "tagline": "",
+                "firstReleaseYear": "2023",
+                "productionStudio": "Doga Kobo",
+                "countryOfOrigin": "Japon",
+                "productionTeam": [
+                    {
+                        "role": "Réalisateur",
+                        "name": "Daisuke Hiramaki"
+                    },
+                    {
+                        "role": "Scénariste",
+                        "name": "Jin Tanaka"
+                    },
+                    {
+                        "role": "Mangaka",
+                        "name": "Aka Akasaka, Mengo Yokari"
+                    },
+                    {
+                        "role": "Compositeur",
+                        "name": "Takuro Iga"
+                    },
+                    {
+                        "role": "Directeur artistique",
+                        "name": "Tetsuya Usami"
+                    },
+                    {
+                        "role": "Character designer",
+                        "name": "Kanna Hirayama"
+                    }
+                ],
+                "indexable": true
+            },
+            "indexable": true
+        },
+        {
+            "id": 24106,
+            "title": "The Dangers in My Heart - Épisode 12.5",
+            "name": "Tsuiyaba !",
+            "number": "Épisode 12.5",
+            "shortNumber": "12.5",
+            "season": "2",
+            "reference": "dangersheart_tv2_0125",
+            "type": "EPS",
+            "order": 13,
+            "image": "https://media.animationdigitalnetwork.com/images/video/23d68f5d-0d27-459a-83c4-41a83181b9ee/thumbnail",
+            "image2x": "https://media.animationdigitalnetwork.com/images/video/23d68f5d-0d27-459a-83c4-41a83181b9ee/thumbnail",
+            "summary": "« Tsuiyaba » est un ensemble de bonus que la mangaka Norio Sakurai a publié sur son compte X (anciennement Twitter) sous la forme de planches. Le quiz des groupes sanguins, un échange de bonbon dans l’ombre, les coiffures préférées des hommes… Des sujets abordés par Yamada, une jeune fille extravertie et Ichikawa, un garçon plutôt réservé durant leur quotidien.",
+            "releaseDate": "2024-01-06T17:30:00Z",
+            "duration": 1272,
+            "user": {
+                "id": 178688,
+                "stoptime": 0,
+                "watchDate": null,
+                "isFullyWatched": false
+            },
+            "url": "https://animationdigitalnetwork.com/video/1037-the-dangers-in-my-heart/24106-episode-12.5",
+            "urlPath": "/video/1037-the-dangers-in-my-heart/24106-episode-12.5",
+            "embeddedUrl": "https://animationdigitalnetwork.com/embedded/1037-the-dangers-in-my-heart/24106",
+            "languages": [
+                "vf"
+            ],
+            "qualities": [
+                "fhd",
+                "hd",
+                "sd"
+            ],
+            "rating": 5,
+            "ratingsCount": 62,
+            "commentsCount": 14,
+            "available": true,
+            "download": false,
+            "free": false,
+            "freeWithAds": false,
+            "show": {
+                "id": 1037,
+                "title": "The Dangers in My Heart",
+                "type": "EPS",
+                "originalTitle": "Boku no Kokoro no Yabai Yatsu",
+                "shortTitle": "The Dangers in My Heart",
+                "reference": "dangersheart_tv",
+                "age": "10+",
+                "languages": [
+                    "vf"
+                ],
+                "summary": "Persuadé d’être le héros tourmenté d’un thriller psychologique, Kyôtarô Ichikawa nourrit l’ambition secrète d’assassiner Anna Yamada, l’idole de sa classe. Mais sous ses airs de tueurs en série et de stalkeur à ses heures perdues, il est loin d’être l’adolescent perturbé qu’il prétend être, contrairement à sa cible, qui semble cacher bien des secrets…",
+                "image": "https://image.animationdigitalnetwork.com/license/dangersheart/tv/web/affiche_175x250.jpg",
+                "image2x": "https://image.animationdigitalnetwork.com/license/dangersheart/tv/web/affiche_350x500.jpg",
+                "imageHorizontal": "https://image.animationdigitalnetwork.com/license/dangersheart/tv/web/license_320x180.jpg",
+                "imageHorizontal2x": "https://image.animationdigitalnetwork.com/license/dangersheart/tv/web/license_640x360.jpg",
+                "url": "https://animationdigitalnetwork.com/video/1037-the-dangers-in-my-heart",
+                "urlPath": "/video/1037-the-dangers-in-my-heart",
+                "episodeCount": 0,
+                "genres": [
+                    "Animation japonaise",
+                    "Comédie",
+                    "Romance",
+                    "Scolaire"
+                ],
+                "copyright": "©Norio Sakurai(AKITASHOTEN)/The Dangers in My Heart Committee",
+                "rating": 3,
+                "ratingsCount": 10,
+                "commentsCount": 0,
+                "qualities": [],
+                "distributions": "fr",
+                "simulcast": false,
+                "free": false,
+                "available": true,
+                "download": false,
+                "nextVideoReleaseDate": null,
+                "basedOn": "Manga",
+                "tagline": null,
+                "firstReleaseYear": "2023",
+                "productionStudio": "Shin-Ei Animation",
+                "countryOfOrigin": "Japon",
+                "productionTeam": [
+                    {
+                        "role": "Réalisateur",
+                        "name": "Hiroaki Akagi"
+                    },
+                    {
+                        "role": "Scénariste",
+                        "name": "Jukki Hanada"
+                    },
+                    {
+                        "role": "Mangaka",
+                        "name": "Norio Sakurai"
+                    },
+                    {
+                        "role": "Compositeur",
+                        "name": "agraph"
+                    },
+                    {
+                        "role": "Directeur artistique",
+                        "name": "Masaki Mayuzumi"
+                    },
+                    {
+                        "role": "Character designer",
+                        "name": "Masato Katsumata"
+                    }
+                ],
+                "indexable": true
+            },
+            "indexable": true
+        }
+    ]
+}

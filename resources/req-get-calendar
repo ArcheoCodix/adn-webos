@@ -1,0 +1,128 @@
+curl 'https://gw.api.animationdigitalnetwork.com/video/calendar?date=2026-07-31' \
+  -H 'accept: application/json' \
+  -H 'accept-language: fr' \
+  -H 'authorization: Bearer ' \
+  -H 'baggage: sentry-environment=production,sentry-release=2.16.0,sentry-public_key=34211bbc6d894dbbb0be08e0f4f90470,sentry-trace_id=a45fbef6fcef48118844d2e07416d79c,sentry-transaction=%2F,sentry-sampled=false,sentry-sample_rand=0.8571622430877659,sentry-sample_rate=0.1' \
+  -H 'origin: https://animationdigitalnetwork.com' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://animationdigitalnetwork.com/' \
+  -H 'sec-ch-ua: "Not;A=Brand";v="8", "Chromium";v="150", "Brave";v="150"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'sec-gpc: 1' \
+  -H 'sentry-trace: ' \
+  -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36' \
+  -H 'x-i18n-platform: 1' \
+  -H 'x-profile-id: 1' \
+  -H 'x-source: Web' \
+  -H 'x-target-distribution: fr'
+
+{
+    "videos": [
+        {
+            "id": 30674,
+            "title": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing - Épisode 17",
+            "name": "",
+            "number": "Épisode 17",
+            "shortNumber": "17",
+            "season": "2",
+            "reference": "hellmode_tv_0017",
+            "type": "EPS",
+            "order": 17,
+            "image": "https://media.animationdigitalnetwork.com/images/show/2b3e2737-6cb5-4084-80f2-6046379f5198/landscape-with-logo",
+            "image2x": "https://media.animationdigitalnetwork.com/images/show/2b3e2737-6cb5-4084-80f2-6046379f5198/landscape-with-logo",
+            "summary": "",
+            "releaseDate": "2026-07-31T16:30:00Z",
+            "duration": 1440,
+            "url": "https://animationdigitalnetwork.com/video/1350-hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing/30674-episode-17",
+            "urlPath": "/video/1350-hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing/30674-episode-17",
+            "embeddedUrl": "https://animationdigitalnetwork.com/embedded/1350-hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing/30674",
+            "languages": [
+                "vostf"
+            ],
+            "qualities": [
+                "fhd",
+                "hd",
+                "sd"
+            ],
+            "rating": 3,
+            "ratingsCount": 10,
+            "commentsCount": 0,
+            "available": false,
+            "download": false,
+            "free": false,
+            "freeWithAds": false,
+            "show": {
+                "id": 1350,
+                "title": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing",
+                "type": "EPS",
+                "originalTitle": "Hell Mode - Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru",
+                "shortTitle": null,
+                "reference": "hellmode_tv",
+                "age": "10+",
+                "languages": [],
+                "summary": "Gamer invétéré, Kenichi Yamada, 35 ans, poursuit depuis plus d’une décennie la quête d’un titre capable de mettre à l’épreuve ses compétences. Par un heureux hasard, il tombe enfin sur un jeu promettant un défi extrême : le « Hell Mode ». Mais contre toute attente, il se retrouve propulsé dans un nouveau monde, sous les traits d’Allen, un simple paysan. Dépourvu de soluces, de guides ou de forums, il doit désormais percer les secrets de sa mystérieuse classe d’invocateur et se frayer un chemin jusqu’au sommet !",
+                "image": "https://image.animationdigitalnetwork.com/license/hellmode/tv/web/affiche_175x250.jpg",
+                "image2x": "https://image.animationdigitalnetwork.com/license/hellmode/tv/web/affiche_350x500.jpg",
+                "imageHorizontal": "https://image.animationdigitalnetwork.com/license/hellmode/tv/web/license_320x180.jpg",
+                "imageHorizontal2x": "https://image.animationdigitalnetwork.com/license/hellmode/tv/web/license_640x360.jpg",
+                "url": "https://animationdigitalnetwork.com/video/1350-hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing",
+                "urlPath": "/video/1350-hell-mode-the-hardcore-gamer-dominates-in-another-world-with-garbage-balancing",
+                "episodeCount": 0,
+                "genres": [
+                    "Animation japonaise",
+                    "Action",
+                    "Aventure",
+                    "Fantastique"
+                ],
+                "copyright": "©Hamuo/ESE/Hell Mode Production Committee",
+                "rating": 3,
+                "ratingsCount": 10,
+                "commentsCount": 26,
+                "qualities": [],
+                "distributions": "fr",
+                "simulcast": false,
+                "free": false,
+                "available": true,
+                "download": false,
+                "nextVideoReleaseDate": null,
+                "basedOn": "Light Novel",
+                "tagline": "S2 dispo !",
+                "firstReleaseYear": "2026",
+                "productionStudio": "Yokohama Animation Lab",
+                "countryOfOrigin": "Japon",
+                "productionTeam": [
+                    {
+                        "role": "Réalisateur",
+                        "name": "Masato Tamagawa"
+                    },
+                    {
+                        "role": "Scénariste",
+                        "name": "Daishiro Tanimura"
+                    },
+                    {
+                        "role": "Auteur",
+                        "name": "Hamuo"
+                    },
+                    {
+                        "role": "Character designer original",
+                        "name": "Mo"
+                    },
+                    {
+                        "role": "Compositeur",
+                        "name": "Reiko Abe"
+                    },
+                    {
+                        "role": "Directeur artistique",
+                        "name": "Hirotsugu Kakoi"
+                    }
+                ],
+                "indexable": true
+            },
+            "indexable": true
+        }
+    ]
+}
