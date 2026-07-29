@@ -1,6 +1,6 @@
-import {useState, useEffect, useCallback, useMemo} from 'react';
 import type React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {useCallback, useEffect, useMemo, useState} from 'react';
+import {Header, Panel} from '@enact/sandstone/Panels';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Scroller from '@enact/sandstone/Scroller';
 import Spinner from '../components/Spinner';
