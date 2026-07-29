@@ -2,31 +2,21 @@ import {useState, useEffect, useCallback} from 'react';
 import {Panel} from '@enact/sandstone/Panels';
 import VideoPlayer from '../components/VideoPlayer';
 import Spinner from '../components/Spinner';
-
 import {getPlayerData} from '../api/player';
 import type {PlayerData} from '../api/player';
 
-interface PlayerPanelProps {
-	videoId?: number;
+// --- Base (presentational) ---
+// Contient les effets DOM liés au rendu (forçage des sous-titres) — pas de fetch.
+
+export interface PlayerPanelBaseProps {
+	playerData: PlayerData | null;
+	loading: boolean;
+	error: string | null;
 	title?: string;
 	onBack?: () => void;
 }
 
-const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
-	const [playerData, setPlayerData] = useState<PlayerData | null>(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
-
-	useEffect(() => {
-		if (!videoId) return;
-		getPlayerData(videoId)
-			.then(data => setPlayerData(data))
-			.catch((e: unknown) => {
-				setError(e instanceof Error ? e.message : 'Impossible de charger la vidéo');
-			})
-			.finally(() => setLoading(false));
-	}, [videoId]);
-
+export const PlayerPanelBase = ({playerData, loading, error, title, onBack}: PlayerPanelBaseProps) => {
 	const forceSubtitles = useCallback(() => {
 		const video = document.querySelector('video');
 		if (!video) return;
@@ -84,6 +74,37 @@ const PlayerPanel = ({videoId, title, onBack}: PlayerPanelProps) => {
 				</>}
 			/>
 		</Panel>
+	);
+};
+
+// --- Container ---
+
+interface PlayerPanelProps {
+	videoId?: number;
+	title?: string;
+	onBack?: () => void;
+}
+
+const PlayerPanel = ({videoId, ...props}: PlayerPanelProps) => {
+	const [playerData, setPlayerData] = useState<PlayerData | null>(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+
+	useEffect(() => {
+		if (!videoId) return;
+		getPlayerData(videoId)
+			.then(data => setPlayerData(data))
+			.catch((e: unknown) => setError(e instanceof Error ? e.message : 'Impossible de charger la vidéo'))
+			.finally(() => setLoading(false));
+	}, [videoId]);
+
+	return (
+		<PlayerPanelBase
+			playerData={playerData}
+			loading={loading}
+			error={error}
+			{...props}
+		/>
 	);
 };
 

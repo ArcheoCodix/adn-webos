@@ -1,13 +1,52 @@
 import {useState, useCallback} from 'react';
+import {Panel, Header} from '@enact/sandstone/Panels';
 import Button from '@enact/sandstone/Button';
+import Spinner from '../components/Spinner';
 import Input from '../components/Input';
 import type {InputChangeEvent} from '../types/adn';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import Spinner from '../components/Spinner';
-
 import {login} from '../api/auth';
 import {ApiError} from '../api/client';
 import css from './LoginPanel.module.less';
+
+// --- Base (presentational) ---
+
+export interface LoginPanelBaseProps {
+	username: string;
+	password: string;
+	loading: boolean;
+	error: string | null;
+	onUsernameChange: (e: InputChangeEvent) => void;
+	onPasswordChange: (e: InputChangeEvent) => void;
+	onLogin: () => void;
+}
+
+export const LoginPanelBase = ({username, password, loading, error, onUsernameChange, onPasswordChange, onLogin}: LoginPanelBaseProps) => (
+	<Panel>
+		<Header title="ADN" subtitle="Connectez-vous à votre compte" />
+		<div className={css.loginForm}>
+			{error && <p className={css.loginError}>{error}</p>}
+			<Input
+				placeholder="Nom d'utilisateur ou adresse e-mail"
+				value={username}
+				onChange={onUsernameChange}
+				disabled={loading}
+			/>
+			<Input
+				placeholder="Mot de passe"
+				type="password"
+				value={password}
+				onChange={onPasswordChange}
+				disabled={loading}
+			/>
+			{loading
+				? <Spinner />
+				: <Button onClick={onLogin}>Se connecter</Button>
+			}
+		</div>
+	</Panel>
+);
+
+// --- Container ---
 
 interface LoginPanelProps {
 	onLogin?: () => void;
@@ -19,8 +58,8 @@ const LoginPanel = ({onLogin}: LoginPanelProps) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const handleUsernameChange = useCallback(({value}: InputChangeEvent) => setUsername(value), []);
-	const handlePasswordChange = useCallback(({value}: InputChangeEvent) => setPassword(value), []);
+	const onUsernameChange = useCallback(({value}: InputChangeEvent) => setUsername(value), []);
+	const onPasswordChange = useCallback(({value}: InputChangeEvent) => setPassword(value), []);
 
 	const handleLogin = useCallback(async () => {
 		if (!username || !password) return;
@@ -40,29 +79,15 @@ const LoginPanel = ({onLogin}: LoginPanelProps) => {
 	}, [username, password, onLogin]);
 
 	return (
-		<Panel>
-			<Header title="ADN" subtitle="Connectez-vous à votre compte" />
-			<div className={css.loginForm}>
-				{error && <p className={css.loginError}>{error}</p>}
-				<Input
-					placeholder="Nom d'utilisateur ou adresse e-mail"
-					value={username}
-					onChange={handleUsernameChange}
-					disabled={loading}
-				/>
-				<Input
-					placeholder="Mot de passe"
-					type="password"
-					value={password}
-					onChange={handlePasswordChange}
-					disabled={loading}
-				/>
-				{loading
-					? <Spinner />
-					: <Button onClick={handleLogin}>Se connecter</Button>
-				}
-			</div>
-		</Panel>
+		<LoginPanelBase
+			username={username}
+			password={password}
+			loading={loading}
+			error={error}
+			onUsernameChange={onUsernameChange}
+			onPasswordChange={onPasswordChange}
+			onLogin={handleLogin}
+		/>
 	);
 };
 
