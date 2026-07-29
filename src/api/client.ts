@@ -8,8 +8,7 @@ const DEFAULT_HEADERS: Record<string, string> = {
 	'Content-Type': 'application/json',
 	'X-Target-Distribution': 'fr',
 	'X-Source': 'Web',
-	'X-I18n-Platform': '1',
-	'X-Profile-Id': '1'
+	'X-I18n-Platform': '1'
 };
 
 export class ApiError extends Error {
@@ -46,9 +45,11 @@ async function doRefresh(): Promise<void> {
 
 export async function request<T>(path: string, options: RequestInit = {}, retry = true): Promise<T> {
 	const token = localStorage.getItem('adn_access_token');
+	const profileId = localStorage.getItem('adn_profile_id');
 	const headers: Record<string, string> = {
 		...DEFAULT_HEADERS,
 		...(token ? {Authorization: `Bearer ${token}`} : {}),
+		...(profileId ? {'X-Profile-Id': profileId} : {}),
 		...(options.headers as Record<string, string> || {})
 	};
 

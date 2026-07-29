@@ -45,7 +45,7 @@ const LoginPanel = ({onLogin}: LoginPanelProps) => {
 			<div className={css.loginForm}>
 				{error && <p className={css.loginError}>{error}</p>}
 				<Input
-					placeholder="Email"
+					placeholder="Nom d'utilisateur ou adresse e-mail"
 					value={username}
 					onChange={handleUsernameChange}
 					disabled={loading}

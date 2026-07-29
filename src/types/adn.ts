@@ -169,3 +169,41 @@ export interface PlayerTokenResponse {
     accessToken: string;
     refreshToken: string;
 }
+
+export interface Profile {
+    id: number;
+    name: string;
+    avatar: string;
+    main: boolean;
+    ageCategory: number | null;
+    quality: string;
+    language: string;
+    autoplay: boolean;
+}
+
+export interface ProfilesResponse {
+    profiles: Profile[];
+}
+
+export interface UserSubscription {
+    period: string;
+    endDate: string;
+    name: string;
+    maxVideoQuality: string;
+    profilesLimit: number;
+    concurrentPlayers: number;
+}
+
+export interface UserDetail {
+    id: number;
+    username: string;
+    name: string;
+    firstName: string;
+    avatar: string;
+    email: string;
+    subscription: UserSubscription | null;
+}
+
+export interface UserResponse {
+    user: UserDetail;
+}
