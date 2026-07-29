@@ -1,12 +1,8 @@
 import type {ComponentType} from 'react';
-import SandstoneInput from '@enact/sandstone/Input';
+import SandstoneInput, {InputProps as SandstoneInputProps} from '@enact/sandstone/Input';
 import type {InputChangeEvent} from '../types/adn';
 
-interface InputProps {
-	placeholder?: string;
-	value?: string;
-	type?: string;
-	disabled?: boolean;
+interface InputProps extends SandstoneInputProps {
 	onChange?: (event: InputChangeEvent) => void;
 }
 
