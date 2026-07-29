@@ -1,0 +1,12 @@
+- Voir comment agrandir les champs (Input login)  
+- Voir pour garder les valeurs des panels précédants :
+  - Garder la recherche lors du back
+  - Garder la position du scroll dans la serie
+- Modifier la page de serie :
+  - Choisir la saison au lieu d'avoir tous les épisodes de la serie
+  - Réduire la taille des ImageItem -> S'inspirer de l'app Android TV
+- Sauvegarder l'historique/avancement visionnage -> Voir req-put-history
+- Ajouter un menu (déconnexion, navigation dans les pages) -> S'inspirer de l'app Android TV
+- Ajouter des pages (voir app android tv)
+- Choix langue/sous-titre et qualité dans le lecteur -> Choix par défaut par rapport au profile
+- Ajouter d'autres listes dans le Home -> S'inspirer de l'app Android TV
