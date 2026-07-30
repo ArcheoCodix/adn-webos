@@ -1,9 +1,20 @@
 - Voir comment agrandir les champs (Input login)  
 - Modifier la page de serie :
-  - Une ligne d'épisode par saison -> voir VirtualList pour éviter d'avoir 5 saisons avec 24 episodes par saison (beaucoup d'image)
+  - Une ligne d'épisode par saison -> voir VirtualList pour éviter d'avoir 5 saisons avec 24 episodes par saison
+  (beaucoup d'image) (Voir pour du scroll infini avec offset/limit)
   - Se baser sur les SVG
 - Sauvegarder l'historique/avancement visionnage -> Voir req-put-history
-- Ajouter un menu (déconnexion, navigation dans les pages) -> S'inspirer de l'app Android TV
+- Ajouter un menu (déconnexion, navigation dans les pages) 
+  - S'inspirer de l'app Android TV -> SVG disponible
+  - Voir ce que Sandstone propose
 - Ajouter des pages (voir app android tv)
 - Choix langue/sous-titre et qualité dans le lecteur -> Choix par défaut par rapport au profile
 - Ajouter d'autres listes dans le Home -> S'inspirer de l'app Android TV
+  - getHome() (/show/home) donne l'ordre et le type des sections, rien à coder en dur
+  - getCarousel() / getTop() / getCalendar() dispos en plus dans src/api/catalog.ts
+- Scroll infini sur les listes -> faire croître dataSize + onScrollStop, recette dans CLAUDE.md
+  - offset/limit sur /video/show/{showId} (épisodes) et limit sur /show/catalog
+  - condition d'arrêt = `total` de la réponse (absent sur /show/carousel)
+- Page calendrier de diffusion -> getCalendar('YYYY-MM-DD'), voir req-get-calendar
+- Les images des séries ont toujours la même taille (1512x2160), elles sont actuellement coupées 
+-> voir pour afficher en entier pour tous les ImageItem de série (classe CSS ? Attention, ImageItem déjà personnalisé dans [ProfilePanel.tsx](src/views/ProfilePanel.tsx))
