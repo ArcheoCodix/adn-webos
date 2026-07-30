@@ -1,12 +1,12 @@
-import {useState, useEffect, useCallback} from 'react';
 import type React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import ImageItem from '@enact/sandstone/ImageItem';
+import {useCallback, useEffect, useState} from 'react';
+import {Header, Panel} from '@enact/sandstone/Panels';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Spinner from '../components/Spinner';
 import {fetchProfiles, setStoredProfile} from '../api/auth';
 import type {Profile} from '../types/adn';
 import css from './ProfilePanel.module.less';
+import ImageItem from "@enact/sandstone/ImageItem";
 
 const ProfileGrid = SpotlightContainerDecorator(
 	{enterTo: 'last-focused'},
@@ -34,7 +34,7 @@ export const ProfilePanelBase = ({profiles, loading, error, onProfileSelect, onB
 
 	return (
 		<Panel>
-			<Header title="Qui regarde ?" onBack={onBack} noCloseButton />
+			<Header title="Qui regarde ?" onBack={onBack} noCloseButton centered />
 			{loading && <Spinner centered />}
 			{!loading && error && <p style={{color: '#e63946', padding: '2rem'}}>{error}</p>}
 			{!loading && !error && (
@@ -45,7 +45,7 @@ export const ProfilePanelBase = ({profiles, loading, error, onProfileSelect, onB
 							data-profile-id={String(profile.id)}
 							src={profile.avatar}
 							onClick={handleClick}
-							style={{width: 270, height: 310}}
+							centered
 						>
 							{profile.name}
 						</ImageItem>
