@@ -2,7 +2,10 @@ import type React from 'react';
 import {useCallback, useEffect, useState} from 'react';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {scale} from '@enact/ui/resolution';
 import Spinner from '../components/Spinner';
+
+const AVATAR_SIZE = `${scale(300)}px`;
 import {fetchProfiles, setStoredProfile} from '../api/auth';
 import type {Profile} from '../types/adn';
 import css from './ProfilePanel.module.less';
@@ -11,7 +14,12 @@ import ImageItem from "@enact/sandstone/ImageItem";
 const ProfileGrid = SpotlightContainerDecorator(
 	{enterTo: 'last-focused'},
 	({children}: {children: React.ReactNode}) => (
-		<div className={css.profileGrid}>{children}</div>
+		<div
+			className={css.profileGrid}
+			style={{'--avatar-size': AVATAR_SIZE} as React.CSSProperties}
+		>
+			{children}
+		</div>
 	)
 );
 
