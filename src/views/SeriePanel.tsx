@@ -1,14 +1,19 @@
 import type React from 'react';
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {VirtualList} from '@enact/sandstone/VirtualList';
 import {scale} from '@enact/ui/resolution';
 import Spinner from '../components/Spinner';
 import {getShowSeasons} from '../api/catalog';
-import type {Show, Video} from '../types/adn';
+import type {Season, Show, Video} from '../types/adn';
 
 const EPISODE_HEIGHT = scale(200);
+
+type ScrollToFn = (opts: {index: number; animate?: boolean; focus?: boolean}) => void;
+
+const episodeScrollCache = new Map<number, number>();
+const seasonsCache = new Map<number, Season[]>();
 
 // --- Base (presentational) ---
 
@@ -22,11 +27,24 @@ export interface SeriePanelBaseProps {
 }
 
 export const SeriePanelBase = ({show, allVideos, loading, error, onEpisodeSelect, onBack}: SeriePanelBaseProps) => {
+	const scrollToRef = useRef<ScrollToFn | null>(null);
+
+	const getScrollTo = useCallback((scrollTo: ScrollToFn) => {
+		scrollToRef.current = scrollTo;
+		const saved = episodeScrollCache.get(show.id);
+		if (saved !== undefined) {
+			requestAnimationFrame(() => scrollTo({index: saved, animate: false, focus: true}));
+		}
+	}, [show.id]);
+
 	const handleEpisodeClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
-		const videoId = parseInt((e.currentTarget as HTMLElement).dataset.videoId ?? '0', 10);
-		const title = (e.currentTarget as HTMLElement).dataset.videoTitle ?? '';
+		const el = e.currentTarget as HTMLElement;
+		const idx = parseInt(el.dataset.videoIndex ?? '0', 10);
+		const videoId = parseInt(el.dataset.videoId ?? '0', 10);
+		const title = el.dataset.videoTitle ?? '';
+		episodeScrollCache.set(show.id, idx);
 		onEpisodeSelect?.(videoId, title);
-	}, [onEpisodeSelect]);
+	}, [show.id, onEpisodeSelect]);
 
 	const renderEpisode = useCallback(({index, ...rest}: {index: number; [key: string]: unknown}) => {
 		const video = allVideos[index];
@@ -35,6 +53,7 @@ export const SeriePanelBase = ({show, allVideos, loading, error, onEpisodeSelect
 				{...rest}
 				data-video-id={String(video.id)}
 				data-video-title={video.title}
+				data-video-index={String(index)}
 				src={video.image}
 				label={video.number}
 				onClick={handleEpisodeClick}
@@ -67,6 +86,7 @@ export const SeriePanelBase = ({show, allVideos, loading, error, onEpisodeSelect
 			/>
 			<VirtualList
 				spotlightId={`episodes-${show.id}`}
+				cbScrollTo={getScrollTo}
 				dataSize={allVideos.length}
 				itemSize={EPISODE_HEIGHT}
 				itemRenderer={renderEpisode}
@@ -85,13 +105,19 @@ interface SeriePanelProps {
 }
 
 const SeriePanel = ({show, ...props}: SeriePanelProps) => {
-	const [seasons, setSeasons] = useState<import('../types/adn').Season[]>([]);
-	const [loading, setLoading] = useState(true);
+	const cached = seasonsCache.get(show.id);
+	const [seasons, setSeasons] = useState<Season[]>(cached ?? []);
+	const [loading, setLoading] = useState(!cached);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
+		if (seasonsCache.has(show.id)) return;
 		getShowSeasons(show.id)
-			.then(data => setSeasons(data.seasons || []))
+			.then(data => {
+				const s = data.seasons || [];
+				seasonsCache.set(show.id, s);
+				setSeasons(s);
+			})
 			.catch((e: unknown) => setError(e instanceof Error ? e.message : 'Erreur de chargement'))
 			.finally(() => setLoading(false));
 	}, [show.id]);

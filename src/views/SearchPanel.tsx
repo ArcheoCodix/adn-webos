@@ -39,23 +39,31 @@ interface SearchPanelProps {
 	onBack?: () => void;
 }
 
+type SearchCache = {query: string; results: Show[]};
+let searchCache: SearchCache = {query: '', results: []};
+
 const SearchPanel = (props: SearchPanelProps) => {
-	const [query, setQuery] = useState('');
-	const [results, setResults] = useState<Show[]>([]);
+	const [query, setQuery] = useState(searchCache.query);
+	const [results, setResults] = useState<Show[]>(searchCache.results);
 	const [loading, setLoading] = useState(false);
 
 	const handleQueryChange = useCallback(async ({value}: InputChangeEvent) => {
 		setQuery(value);
+		searchCache.query = value;
 		if (!value || value.length < 2) {
 			setResults([]);
+			searchCache.results = [];
 			return;
 		}
 		setLoading(true);
 		try {
 			const data = await search(value);
-			setResults(data.shows || []);
+			const shows = data.shows || [];
+			setResults(shows);
+			searchCache.results = shows;
 		} catch {
 			setResults([]);
+			searchCache.results = [];
 		} finally {
 			setLoading(false);
 		}

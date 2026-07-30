@@ -59,21 +59,26 @@ interface HomePanelProps {
     onProfileChange?: () => void;
 }
 
+type CatalogCache = {simulcasts: Show[]; catalog: Show[]};
+let catalogCache: CatalogCache | null = null;
+
 const HomePanel = (props: HomePanelProps) => {
-    const [simulcasts, setSimulcasts] = useState<Show[]>([]);
-    const [catalog, setCatalog] = useState<Show[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [simulcasts, setSimulcasts] = useState<Show[]>(catalogCache?.simulcasts ?? []);
+    const [catalog, setCatalog] = useState<Show[]>(catalogCache?.catalog ?? []);
+    const [loading, setLoading] = useState(catalogCache === null);
     const profileName = getStoredProfile()?.name ?? 'Profil';
 
     useEffect(() => {
+        if (catalogCache !== null) return;
         getCatalog()
             .then(data => {
                 const shows = data.shows || [];
-                setSimulcasts(shows.filter(s => s.simulcast));
+                const sim = shows.filter(s => s.simulcast);
+                catalogCache = {simulcasts: sim, catalog: shows};
+                setSimulcasts(sim);
                 setCatalog(shows);
             })
-            .catch(() => {
-            })
+            .catch(() => {})
             .finally(() => setLoading(false));
     }, []);
 
