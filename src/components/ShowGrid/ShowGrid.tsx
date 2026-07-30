@@ -10,12 +10,13 @@ const ITEM_WIDTH = scale(360);
 const ITEM_HEIGHT = scale(420);
 
 interface ShowGridProps {
+	id: string;
 	title?: string;
 	shows?: Show[];
 	onSelect?: (show: Show) => void;
 }
 
-const ShowGrid = ({title, shows = [], onSelect}: ShowGridProps) => {
+const ShowGrid = ({id, title, shows = [], onSelect}: ShowGridProps) => {
 	const handleClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
 		const idx = parseInt((e.currentTarget as HTMLElement).dataset.index ?? '0', 10);
 		if (shows[idx]) onSelect?.(shows[idx]);
@@ -43,6 +44,7 @@ const ShowGrid = ({title, shows = [], onSelect}: ShowGridProps) => {
 			{title && <Heading size="small">{title}</Heading>}
 			<VirtualList
 				direction="horizontal"
+				spotlightId={id}
 				dataSize={shows.length}
 				itemSize={ITEM_WIDTH}
 				itemRenderer={renderItem}

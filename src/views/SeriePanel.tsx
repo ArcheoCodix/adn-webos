@@ -2,10 +2,13 @@ import type React from 'react';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import ImageItem from '@enact/sandstone/ImageItem';
-import Scroller from '@enact/sandstone/Scroller';
+import {VirtualList} from '@enact/sandstone/VirtualList';
+import {scale} from '@enact/ui/resolution';
 import Spinner from '../components/Spinner';
 import {getShowSeasons} from '../api/catalog';
 import type {Show, Video} from '../types/adn';
+
+const EPISODE_HEIGHT = scale(200);
 
 // --- Base (presentational) ---
 
@@ -24,6 +27,23 @@ export const SeriePanelBase = ({show, allVideos, loading, error, onEpisodeSelect
 		const title = (e.currentTarget as HTMLElement).dataset.videoTitle ?? '';
 		onEpisodeSelect?.(videoId, title);
 	}, [onEpisodeSelect]);
+
+	const renderEpisode = useCallback(({index, ...rest}: {index: number; [key: string]: unknown}) => {
+		const video = allVideos[index];
+		return (
+			<ImageItem
+				{...rest}
+				data-video-id={String(video.id)}
+				data-video-title={video.title}
+				src={video.image}
+				label={video.number}
+				onClick={handleEpisodeClick}
+				style={{height: EPISODE_HEIGHT}}
+			>
+				{video.name}
+			</ImageItem>
+		);
+	}, [allVideos, handleEpisodeClick]);
 
 	if (loading) {
 		return <Panel><Spinner centered /></Panel>;
@@ -45,20 +65,13 @@ export const SeriePanelBase = ({show, allVideos, loading, error, onEpisodeSelect
 				subtitle={show.genres?.join(', ') || ''}
 				onBack={onBack}
 			/>
-			<Scroller>
-				{allVideos.map(video => (
-					<ImageItem
-						key={video.id}
-						data-video-id={String(video.id)}
-						data-video-title={video.title}
-						src={video.image}
-						label={video.number}
-						onClick={handleEpisodeClick}
-					>
-						{video.name}
-					</ImageItem>
-				))}
-			</Scroller>
+			<VirtualList
+				spotlightId={`episodes-${show.id}`}
+				dataSize={allVideos.length}
+				itemSize={EPISODE_HEIGHT}
+				itemRenderer={renderEpisode}
+				verticalScrollbar="hidden"
+			/>
 		</Panel>
 	);
 };

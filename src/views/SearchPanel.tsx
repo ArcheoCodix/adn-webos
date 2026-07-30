@@ -27,7 +27,7 @@ export const SearchPanelBase = ({query, results, loading, onQueryChange, onShowS
 		/>
 		{loading
 			? <Spinner />
-			: <ShowGrid shows={results} onSelect={onShowSelect} />
+			: <ShowGrid id="search-results" shows={results} onSelect={onShowSelect} />
 		}
 	</Panel>
 );

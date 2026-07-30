@@ -44,8 +44,8 @@ export const HomePanelBase = ({
         {loading
             ? <Spinner centered/>
             : <Scroller>
-                <ShowGrid title="Simulcasts en cours" shows={simulcasts} onSelect={onShowSelect}/>
-                <ShowGrid title="Catalogue" shows={catalog} onSelect={onShowSelect}/>
+                <ShowGrid id="simulcasts" title="Simulcasts en cours" shows={simulcasts} onSelect={onShowSelect}/>
+                <ShowGrid id="catalog" title="Catalogue" shows={catalog} onSelect={onShowSelect}/>
             </Scroller>
         }
     </Panel>
