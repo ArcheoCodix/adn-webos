@@ -8,7 +8,7 @@
     "appDescription": "Application non-officielle Animation Digital Network pour WebOS TV",
     "icon": "icon.png",
     "largeIcon": "icon130.png",
-    "bgColor": "#0d0d1a",
-    "iconColor": "#e63946",
+    "bgColor": "#04121a",
+    "iconColor": "#04121a",
     "disableBackHistoryAPI": true
 }

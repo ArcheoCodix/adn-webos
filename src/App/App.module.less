@@ -1,3 +1,115 @@
+/* Palette ADN (variables --sand-*). Importé ici pour que webpack l'intègre à main.css :
+ * pas besoin de `enact pack --custom-skin` ni de copie manuelle dans dist/customizations/.
+ * Le fichier reste au nom et à l'emplacement attendus par --custom-skin, au cas où. */
+@import (less) "../../customizations/custom_skin.css";
+
+/* Fontes de marque ADN, extraites de l'app Android TV officielle (fr.anidn Tv6.9.40).
+ * Inter = toute l'UI, Unbounded Bold = titres / branding.
+ * Les deux sont sous licence SIL OFL (Google Fonts). */
+
+@font-face {
+	font-family: "Inter";
+	src: url("../../resources/fonts/Inter-Light.ttf");
+	font-weight: 300;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("../../resources/fonts/Inter-Regular.ttf");
+	font-weight: 400;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("../../resources/fonts/Inter-Medium.ttf");
+	font-weight: 500;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("../../resources/fonts/Inter-SemiBold.ttf");
+	font-weight: 600;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("../../resources/fonts/Inter-Bold.ttf");
+	font-weight: 700;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("../../resources/fonts/Inter-ExtraBold.ttf");
+	font-weight: 800;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Unbounded";
+	src: url("../../resources/fonts/Unbounded-Bold.ttf");
+	font-weight: 700;
+	font-display: block;
+}
+
+/* Substitution de la fonte Sandstone par Inter.
+ *
+ * Sandstone code en dur la chaîne LESS `@sand-font-family: "Sandstone"` (variables.less:189) :
+ * ce n'est pas une variable CSS, donc custom_skin.css ne peut pas la surcharger. En revanche
+ * Sandstone ne déclare aucun @font-face pour cette famille — il s'appuie sur la fonte système
+ * de la TV LG. Redéclarer la famille ici la fait donc gagner sur la fonte système.
+ *
+ * Les icônes ("Sandstone Icons") et les variantes non-latines ("Sandstone ar", "Sandstone hi"…)
+ * sont des familles distinctes : elles ne sont pas affectées.
+ *
+ * Pour revenir à la fonte LG d'origine, supprimer ce bloc.
+ */
+@font-face {
+	font-family: "Sandstone";
+	src: url("../../resources/fonts/Inter-Light.ttf");
+	font-weight: 300;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Sandstone";
+	src: url("../../resources/fonts/Inter-Regular.ttf");
+	font-weight: 400;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Sandstone";
+	src: url("../../resources/fonts/Inter-Medium.ttf");
+	font-weight: 500;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Sandstone";
+	src: url("../../resources/fonts/Inter-SemiBold.ttf");
+	font-weight: 600;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Sandstone";
+	src: url("../../resources/fonts/Inter-Bold.ttf");
+	font-weight: 700;
+	font-display: block;
+}
+
+@font-face {
+	font-family: "Sandstone";
+	src: url("../../resources/fonts/Inter-ExtraBold.ttf");
+	font-weight: 800;
+	font-display: block;
+}
+
 @font-face {
 	font-family: "Liberation Sans";
 	src: url("../../resources/fonts/LiberationSans-Regular.ttf");

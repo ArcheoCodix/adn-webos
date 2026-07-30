@@ -1,18 +1,66 @@
-/* Thème ADN — couleurs principales */
---sand-bg-color: #0d0d1a;
---sand-component-background-color: #12122a;
---sand-overlay-bg-color: rgba(13, 13, 26, 0.9);
+/*
+ * Thème ADN — couleurs relevées sur l'app Android TV officielle (fr.anidn Tv6.9.40).
+ * Noms des tokens d'origine indiqués en commentaire.
+ *
+ * Ce fichier est chargé comme feuille de style par le template --custom-skin de la CLI Enact :
+ * il DOIT donc contenir un sélecteur (:root) et être copié dans dist/customizations/.
+ * Voir node_modules/@enact/cli/docs/building-apps.md § "Custom Skin Support".
+ */
 
---sand-text-color: #f0f0f0;
---sand-text-sub-color: #a0a0c0;
+:root {
+	/* --- Fonds --- */
+	--sand-bg-color: #04121a;                 /* adnSpaceBlue — fond principal */
+	--sand-fullscreen-bg-color: #020b11;      /* adnDeepSpaceBlue — panneaux pleine page */
+	--sand-fullscreen-text-color: #ffffff;
+	--sand-overlay-bg-color-rgb: 2, 11, 17;   /* adnDeepSpaceBlue — popups, contextual popup */
+	--sand-overlay-text-color: #ffffff;
 
---sand-focus-bg-color: #e63946;
---sand-focus-text-color: #ffffff;
---sand-accent-color: #e63946;
+	/* --- Texte --- */
+	--sand-text-color-rgb: 255, 255, 255;     /* textColorPrimary */
+	--sand-text-sub-color: #999999;           /* lightTextColor */
 
---sand-button-bg-color: #1e1e3a;
---sand-button-focused-bg-color: #e63946;
+	/* --- Focus : remplissage bleu ADN, comme les cartes Leanback --- */
+	--sand-focus-bg-color-rgb: 0, 150, 255;   /* colorPrimary / blueColor #0096FF */
+	--sand-focus-text-color: #ffffff;
 
---sand-input-bg-color: #1e1e3a;
---sand-input-focused-bg-color: #12122a;
---sand-input-border-color: #e63946;
+	/* --- Composants (carte non focus = darkGreyColor, cf. ImageCardView.setSelected) --- */
+	--sand-component-bg-color: #303132;                    /* darkGreyColor */
+	--sand-component-text-color-rgb: 255, 255, 255;
+	--sand-component-text-sub-color-rgb: 221, 221, 221;    /* colorLightGrey #DDDDDD */
+	--sand-component-focus-text-color-rgb: 255, 255, 255;  /* blanc sur focus bleu */
+	--sand-component-active-indicator-bg-color: #0096ff;
+	--sand-component-inactive-indicator-bg-color: #515151; /* colorGrey */
+	--sand-component-focus-active-indicator-bg-color: #ffffff;
+	--sand-component-focus-inactive-indicator-bg-color: #78c8ff; /* colorPrimary_light */
+
+	/* --- Sélection --- */
+	--sand-selected-bg-color: #064056;        /* activeButtonGray */
+	--sand-selected-text-color: #ffffff;
+	--sand-selected-focus-bg-color: #0096ff;
+	--sand-selected-focus-text-color: #ffffff;
+	--sand-selection-bg-color: #0096ff;
+	--sand-selection-color: #ffffff;
+
+	/* --- Progression / lecteur --- */
+	/* ADN : played #0096FF, buffered #78C8FF, unplayed #FFFFFF (DefaultTimeBar) */
+	--sand-progress-color-rgb: 0, 150, 255;   /* portion lue */
+	--sand-progress-bg-color-rgb: 48, 49, 50; /* darkGreyColor — piste */
+	--sand-progress-highlighted-color: #78c8ff;
+	--sand-progress-slider-color: #78c8ff;
+
+	/* --- Interrupteurs --- */
+	--sand-toggle-on-bg-color: #0096ff;
+	--sand-toggle-on-color: #ffffff;
+	--sand-toggle-off-bg-color: #515151;      /* colorGrey */
+	--sand-toggle-off-color: #dddddd;
+
+	/* --- États désactivés --- */
+	--sand-disabled-text-color: #58595a;      /* darkTextColor */
+	--sand-disabled-bg-color: #303132;
+	--sand-disabled-focus-bg-color: #064056;
+	--sand-disabled-focus-text-color: #999999;
+
+	/* --- Divers --- */
+	--sand-iconitem-border-color: #515151;    /* colorGrey */
+	--sand-slider-disabled-knob-bg-color: #515151;
+}

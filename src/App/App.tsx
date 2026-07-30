@@ -17,7 +17,7 @@ const AppBase = () => {
 
 	useEffect(() => {
 		if (process.env.NODE_ENV === 'development') {
-			document.body.style.backgroundColor = '#0d0d1a';
+			document.body.style.backgroundColor = '#04121a';
 		}
 	}, []);
 
