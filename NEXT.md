@@ -1,10 +1,7 @@
 - Voir comment agrandir les champs (Input login)  
-- Voir pour garder les valeurs des panels précédants :
-  - Garder la recherche lors du back
-  - Garder la position du scroll dans la serie
 - Modifier la page de serie :
-  - Choisir la saison au lieu d'avoir tous les épisodes de la serie
-  - Réduire la taille des ImageItem -> S'inspirer de l'app Android TV
+  - Une ligne d'épisode par saison -> voir VirtualList pour éviter d'avoir 5 saisons avec 24 episodes par saison (beaucoup d'image)
+  - Se baser sur les SVG
 - Sauvegarder l'historique/avancement visionnage -> Voir req-put-history
 - Ajouter un menu (déconnexion, navigation dans les pages) -> S'inspirer de l'app Android TV
 - Ajouter des pages (voir app android tv)
