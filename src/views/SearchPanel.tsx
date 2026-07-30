@@ -1,10 +1,10 @@
-import {useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import Spinner from '../components/Spinner';
-import Input from '../components/Input';
 import {search} from '../api/catalog';
 import ShowGrid from '../components/ShowGrid/ShowGrid';
-import type {Show, InputChangeEvent} from '../types/adn';
+import type {InputChangeEvent, Show} from '../types/adn';
+import Input from '../components/Input';
 
 // --- Base (presentational) ---
 
@@ -12,7 +12,7 @@ export interface SearchPanelBaseProps {
 	query: string;
 	results: Show[];
 	loading: boolean;
-	onQueryChange: (e: InputChangeEvent) => void;
+	onQueryChange: (event: InputChangeEvent) => void;
 	onShowSelect?: (show: Show) => void;
 	onBack?: () => void;
 }
@@ -23,7 +23,7 @@ export const SearchPanelBase = ({query, results, loading, onQueryChange, onShowS
 		<Input
 			placeholder="Rechercher une série..."
 			value={query}
-			onChange={onQueryChange}
+			onComplete={onQueryChange}
 		/>
 		{loading
 			? <Spinner />

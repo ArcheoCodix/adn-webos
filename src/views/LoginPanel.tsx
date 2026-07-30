@@ -1,12 +1,12 @@
-import {useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import Button from '@enact/sandstone/Button';
 import Spinner from '../components/Spinner';
-import Input from '../components/Input';
-import type {InputChangeEvent} from '../types/adn';
 import {login} from '../api/auth';
 import {ApiError} from '../api/client';
 import css from './LoginPanel.module.less';
+import {InputChangeEvent} from "../types/adn";
+import Input from "../components/Input";
 
 // --- Base (presentational) ---
 
@@ -28,14 +28,14 @@ export const LoginPanelBase = ({username, password, loading, error, onUsernameCh
 			<Input
 				placeholder="Nom d'utilisateur ou adresse e-mail"
 				value={username}
-				onChange={onUsernameChange}
+				onComplete={onUsernameChange}
 				disabled={loading}
 			/>
 			<Input
 				placeholder="Mot de passe"
 				type="password"
 				value={password}
-				onChange={onPasswordChange}
+				onComplete={onPasswordChange}
 				disabled={loading}
 			/>
 			{loading
@@ -58,8 +58,8 @@ const LoginPanel = ({onLogin}: LoginPanelProps) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const onUsernameChange = useCallback(({value}: InputChangeEvent) => setUsername(value), []);
-	const onPasswordChange = useCallback(({value}: InputChangeEvent) => setPassword(value), []);
+	const onUsernameChange = useCallback((event: InputChangeEvent) => setUsername(event.value), []);
+	const onPasswordChange = useCallback((event: InputChangeEvent) => setPassword(event.value), []);
 
 	const handleLogin = useCallback(async () => {
 		if (!username || !password) return;
