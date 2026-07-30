@@ -67,35 +67,99 @@ Routing manuel par `useState` dans `App.js` (pas de react-router). Les vues sont
 
 **Base URL :** `https://gw.api.animationdigitalnetwork.com`
 
+Le host n'est pas censé être codé en dur : les apps officielles lisent
+`https://animationdigitalnetwork.com/api-definition.json` au démarrage, qui renvoie
+`{"version": 3.0, "host": "https://gw.api.animationdigitalnetwork.com"}`. Aujourd'hui la valeur
+est identique au défaut — c'est un interrupteur de secours pour une future migration d'infra.
+
 ### Endpoints
 
-| Méthode | Endpoint | Usage |
-|---|---|---|
-| POST | `/authentication/login` | Connexion (email + password) |
-| POST | `/authentication/refresh` | Rafraîchir l'access token |
-| GET | `/show/catalog` | Catalogue / recherche (`?search=`, `?page=`) |
-| GET | `/video/show/{id}` | Infos d'une série |
-| GET | `/video/show/{id}/videos` | Liste des épisodes |
-| GET | `/player/video/{id}/configuration` | Config du lecteur |
-| GET | `/player/video/{id}/link` | URL du stream HLS |
-| POST | `/player/refresh/token` | Rafraîchir le token player |
+Colonne **Src** : `TV` = relevé dans les annotations Retrofit de l'app Android TV `fr.anidn`
+Tv6.9.40 · `web` = capturé sur le site (cf. `resources/req-*`) · `?` = non vérifié.
 
-### Headers requis
+| Méthode | Endpoint | Usage | Src |
+|---|---|---|---|
+| GET | `/show/home?maxAgeCategory&app=` | **Accueil : pilote l'ordre et le type des sections** | TV |
+| GET | `/show/catalog?maxAgeCategory` + `search` `limit` `genres` | Catalogue / recherche | TV |
+| GET | `/show/carousel` + `limit` `responseType=light` | Carrousel de mise en avant | TV+web |
+| GET | `/show/top` + `limit` | Top séries | web |
+| GET | `/show/{showId}` | Infos d'une série | TV |
+| GET | `/show/{showId}/season` + `order` | Métadonnées des saisons (`{season, title, limit, offset}`) | TV |
+| GET | `/show/{showId}/related?maxAgeCategory` + `limit` | « Anime à voir ensuite » | TV |
+| GET | `/show/user/recommended?maxAgeCategory` | Reco personnalisées | TV |
+| GET | `/show/user/viewing/recommended?maxAgeCategory` | Reco selon l'historique | TV |
+| GET | `/video/show/{showId}` + `offset` `limit` `order` `season` | Épisodes d'une saison, paginés | TV |
+| GET | `/video/show/{showId}/seasons` + `order` | Saisons **avec** leurs épisodes | ? |
+| GET | `/video/calendar` + `date=YYYY-MM-DD` | Calendrier de diffusion | web |
+| GET | `/video/user/notification` | Notifications | TV |
+| GET | `/viewing/history` + `merged` `onlyNext` | Historique / reprise de lecture | TV+web |
+| GET | `/viewing/history/show/{showId}/last` | Dernier épisode vu d'une série | TV |
+| PUT | `/viewing/history/video/{videoId}` | Remonter la progression | TV+web |
+| GET | `/watchlist?maxAgeCategory` | Watchlist | TV |
+| PUT / DELETE | `/watchlist/show/{showId}` | Ajouter / retirer | TV |
+| GET | `/watchlist/show/{showId}/status` | État d'une série | TV |
+| PATCH | `/watchlist/sort` | Réordonner | TV |
+| POST | `/authentication/login` · `/logout` · `/refresh` | Session | TV |
+| POST | `/authentication/2fa/ask` · `/2fa/verify` | Double authentification | TV |
+| GET | `/user` · POST `/user` · PUT `/user/lastvisit` | Compte, inscription | TV |
+| GET | `/profile` · `/profile/{id}` · PUT `/profile/{id}` | Profils | TV |
+| GET | `/player/publickey` | Clé publique RSA du lecteur | TV |
+| GET | `/player/video/{id}/configuration` | Config du lecteur | TV |
+| POST | `/player/chromecast/refresh/token` | Token Chromecast | TV |
+| GET | `/geolocation/config` · `/geolocation/test` | Géoblocage | TV |
+
+> ⚠️ Il n'existe **pas** d'endpoint `/player/video/{id}/link` en dur. Les appels du lecteur
+> (`link`, `raw url`, `video location`, `subtitle location`, `refresh token`) utilisent des **URL
+> dynamiques** renvoyées par `/player/video/{id}/configuration`. `POST /player/refresh/token` existe
+> bien, mais il n'est pas dans l'interface Retrofit : il est appelé manuellement par
+> `TokenAuthenticator` (cf. ci-dessous). C'est ce que fait déjà `src/api/player.ts`.
+
+### Headers
+
+Aucun header propriétaire n'est réellement obligatoire : les captures web n'envoient que
+`accept`, `accept-language` et `authorization`. L'app TV n'envoie **jamais**
+`X-Target-Distribution` (seule l'app mobile le fait, en minuscules).
 
 ```
-X-Target-Distribution: fr        # Région (fr, de, pl)
-Authorization: Bearer <token>    # Access token OAuth
-Content-Type: application/json
+Authorization: Bearer <accessToken>   # session compte
+X-Profile-ID: <profileId>             # profil actif, sur les endpoints personnalisés
+X-Player-Access-Token: <token>        # requêtes lecteur (progression, etc.)
+X-Player-Refresh-Token: <token>       # rafraîchir le token lecteur
+X-Player-Token: <RSA(...)>            # récupération du lien de stream
+Accept-Language: fr                   # région (fr, de, pl)
 ```
+
+### Deux conventions déclaratives à reprendre
+
+Les apps officielles marquent les besoins d'un appel dans sa déclaration, et un interceptor unique
+les résout. C'est plus propre que de passer profil et âge à chaque fonction :
+
+- **`?maxAgeCategory` sans valeur** dans l'URL : `AgeCategoryInterceptor` le remplace par
+  `maxAgeCategory=<âge du profil>`, ou le supprime si aucun âge n'est défini.
+- **`<Header>: dummy`** en en-tête : l'interceptor correspondant remplace la valeur `dummy` par le
+  vrai token, ou retire l'en-tête. Utilisé pour `Authorization`, `X-Profile-ID`,
+  `X-Player-Access-Token`.
 
 ### Flux d'authentification
 
 1. POST `/authentication/login` → reçoit `accessToken` + `refreshToken`
 2. Stocker les deux tokens en `localStorage`
 3. Rafraîchir l'access token via `/authentication/refresh` avant expiration
-4. Pour lire une vidéo : le player token RSA-2048 est probablement nécessaire (à implémenter — cf. [multi-downloader-nx/adn.ts](https://github.com/anidl/multi-downloader-nx/blob/master/adn.ts))
+4. Lecture vidéo : `/player/video/{id}/configuration` → rafraîchir le token lecteur sur l'URL
+   qu'elle fournit → chiffrer `{k, t}` en RSA-PKCS1 avec `/player/publickey` → appeler l'URL de
+   `link` avec `X-Player-Token`. Implémenté dans `src/api/player.ts`.
 
-> Sources API : [yt-dlp ADN extractor](https://github.com/yt-dlp/yt-dlp/blob/master/yt_dlp/extractor/adn.py) et [multi-downloader-nx/adn.ts](https://github.com/anidl/multi-downloader-nx/blob/master/adn.ts)
+Sur 401, l'app officielle distingue deux cas dans un `Authenticator` unique, avec
+`/authentication/refresh` et `/player/refresh/token` **exclus** du retry pour éviter les boucles :
+
+- la requête portait `X-Player-Access-Token` → rafraîchir le **token lecteur**, rejouer
+- sinon, elle portait `Authorization` → rafraîchir l'**access token du compte**, rejouer
+
+> Sources : annotations Retrofit de `fr.anidn.library.api.ADNService` (app Android TV Tv6.9.40),
+> captures du site web dans `resources/req-*`, et pour mémoire
+> [yt-dlp](https://github.com/yt-dlp/yt-dlp/blob/master/yt_dlp/extractor/adn.py) /
+> [multi-downloader-nx](https://github.com/anidl/multi-downloader-nx/blob/master/adn.ts) qui ciblent
+> des versions plus anciennes de l'API.
 
 ---
 
@@ -119,6 +183,53 @@ Rewind      : 412   FastForward : 417
 - WebOS 4.x ≈ Chrome 53 — Enact CLI transpile en conséquence
 - WebOS 6.x ≈ Chrome 87
 - Mémoire limitée : viser < 250 MB RAM
+
+### Pagination et scroll infini
+
+Deux endpoints acceptent `offset` / `limit` : `GET /video/show/{showId}` (épisodes d'une saison) et
+`GET /show/catalog` (`limit`). `GET /show/{showId}/season` renvoie d'ailleurs un `limit` et un
+`offset` par saison — le serveur indique lui-même comment paginer. Utile pour les grosses séries :
+One Piece annonce `episodeCount: 1194`.
+
+**Sandstone sait faire du scroll infini sans API dédiée** : il suffit de faire croître la prop
+`dataSize` de `VirtualList` / `VirtualGridList`. Enact conserve `firstIndex` et le focus lors de
+l'agrandissement — pas de saut de scroll. Le déclencheur vient de `onScrollStop`, dont l'événement
+contient tout le nécessaire (vérifié dans `@enact/ui/useScroll/useScroll.js`) :
+
+```js
+onScrollStop({
+    scrollLeft, scrollTop,
+    moreInfo:        {firstVisibleIndex, lastVisibleIndex},
+    reachedEdgeInfo: {top, bottom, left, right}
+})
+```
+
+```jsx
+const handleScrollStop = useCallback(({moreInfo, reachedEdgeInfo}) => {
+    if (loading || items.length >= total) return;
+    // marge d'anticipation pour masquer la latence réseau
+    if (reachedEdgeInfo.bottom || moreInfo.lastVisibleIndex >= items.length - 12) {
+        loadMore(items.length);   // offset = nombre d'éléments déjà chargés
+    }
+}, [loading, items.length, total]);
+
+<VirtualGridList
+    dataSize={items.length}
+    itemSize={{minWidth: ri.scale(245), minHeight: ri.scale(454)}}
+    itemRenderer={renderItem}
+    onScrollStop={handleScrollStop}
+/>
+```
+
+Le `total` renvoyé par `/show/catalog` et `/show/top` sert de condition d'arrêt.
+⚠️ `/show/carousel` n'a **pas** de `total`.
+
+Points d'attention :
+- garder les items dans un `useRef` ou un state stable : `itemRenderer` doit rester référentiellement
+  stable (`useCallback`), sinon la liste se re-render entièrement à chaque page ajoutée
+- ne pas remonter `dataSize` puis le redescendre, cela casse la position de scroll
+- une row par saison sur la fiche série multiplie les images à charger ; préférer une
+  `VirtualGridList` horizontale par saison, chargée à la demande quand la row devient visible
 
 ---
 
