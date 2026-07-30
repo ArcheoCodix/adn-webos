@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1900" width="1920" height="1900" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <title>ADN Android TV : fiche série (ShowFragment), épisodes et saisons</title>
+
+  <defs>
+    <linearGradient id="backdropFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0C2330" stop-opacity="1"/>
+      <stop offset="1" stop-color="#04121A" stop-opacity="1"/>
+    </linearGradient>
+
+    <path id="star" d="M20 2 L25.6 14.6 L39.2 16.1 L29 25.3 L31.8 38.7 L20 32 L8.2 38.7 L11 25.3 L0.8 16.1 L14.4 14.6 Z"/>
+
+    <!-- Carte épisode : image 400x225 (16:9) + ProgressBar + bandeau info 104 -->
+    <g id="epCard">
+      <rect width="400" height="329" rx="4" fill="#303132"/>
+      <rect width="400" height="225" fill="#0C2330"/>
+      <path d="M0 150 L96 92 L188 158 L268 108 L400 186 L400 225 L0 225 Z" fill="#273D49"/>
+      <rect y="217" width="400" height="8" fill="#FFFFFF" opacity="0.25"/>
+      <rect y="217" width="164" height="8" fill="#0096FF"/>
+      <rect x="14" y="243" width="290" height="16" rx="3" fill="#DDDDDD"/>
+      <rect x="14" y="273" width="150" height="12" rx="3" fill="#999999"/>
+    </g>
+
+    <g id="epCardFocus">
+      <rect width="400" height="329" rx="4" fill="#0096FF"/>
+      <rect width="400" height="225" fill="#0C2330"/>
+      <path d="M0 150 L96 92 L188 158 L268 108 L400 186 L400 225 L0 225 Z" fill="#273D49"/>
+      <rect y="217" width="400" height="8" fill="#FFFFFF" opacity="0.25"/>
+      <rect y="217" width="164" height="8" fill="#FFFFFF"/>
+      <rect x="14" y="243" width="290" height="16" rx="3" fill="#FFFFFF"/>
+      <rect x="14" y="273" width="150" height="12" rx="3" fill="#CBD8E0"/>
+    </g>
+  </defs>
+
+  <!-- ECRAN 1920x1080 -->
+  <g>
+    <rect width="1920" height="1080" fill="#04121A"/>
+
+    <rect width="1920" height="320" fill="url(#backdropFade)"/>
+    <path d="M0 200 L300 60 L560 210 L900 40 L1300 220 L1650 90 L1920 200 L1920 320 L0 320 Z" fill="#273D49" opacity="0.55"/>
+
+    <rect x="0" y="320" width="1920" height="460" fill="#303132"/>
+
+    <g>
+      <rect x="256" y="100" width="300" height="420" rx="4" fill="#0C2330" stroke="#5E717B" stroke-width="2"/>
+      <path d="M256 400 L332 320 L408 396 L466 348 L556 434 L556 520 L256 520 Z" fill="#273D49"/>
+      <circle cx="486" cy="188" r="34" fill="#273D49"/>
+    </g>
+
+    <g>
+      <text x="604" y="416" fill="#FFFFFF" font-size="48" font-weight="700">Nom de la série</text>
+
+      <g transform="translate(604,442)">
+        <use href="#star" x="0" fill="#0096FF"/>
+        <use href="#star" x="48" fill="#0096FF"/>
+        <use href="#star" x="96" fill="#FFFFFF" opacity="0.35"/>
+        <use href="#star" x="144" fill="#FFFFFF" opacity="0.35"/>
+        <use href="#star" x="192" fill="#FFFFFF" opacity="0.35"/>
+        <clipPath id="halfStar"><rect x="96" y="0" width="20" height="40"/></clipPath>
+        <use href="#star" x="96" fill="#0096FF" clip-path="url(#halfStar)"/>
+
+        <rect x="264" y="4" width="112" height="34" rx="3" fill="#04121A" stroke="#999999" stroke-width="2"/>
+        <text x="320" y="29" fill="#DDDDDD" font-size="20" font-weight="700" text-anchor="middle">VOSTFR</text>
+        <rect x="392" y="4" width="72" height="34" rx="3" fill="#04121A" stroke="#999999" stroke-width="2"/>
+        <text x="428" y="29" fill="#DDDDDD" font-size="20" font-weight="700" text-anchor="middle">HD</text>
+      </g>
+
+      <text x="604" y="546" fill="#FFFFFF" font-size="32">Résumé:</text>
+      <g fill="#DDDDDD" font-size="26">
+        <text x="604" y="592">Synopsis de la série sur plusieurs lignes, tronqué au-delà de 220dp</text>
+        <text x="604" y="630">de hauteur. La colonne s'arrête à 54dp du bord droit.</text>
+      </g>
+      <text x="604" y="742" fill="#C1C1C1" font-size="20">Mentions légales / crédits, 10sp, couleur watermark #C1C1C1</text>
+    </g>
+
+    <g>
+      <rect x="0" y="780" width="1920" height="112" fill="#0096FF"/>
+
+      <rect x="256" y="804" width="340" height="64" rx="4" fill="#FFFFFF"/>
+      <g transform="translate(284,818)">
+        <circle cx="16" cy="18" r="16" fill="none" stroke="#0096FF" stroke-width="4"/>
+        <path d="M11 10 L25 18 L11 26 Z" fill="#0096FF"/>
+      </g>
+      <text x="330" y="846" fill="#0096FF" font-size="28" font-weight="700">Épisode 12</text>
+
+      <g transform="translate(636,804)">
+        <rect width="420" height="64" rx="4" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.7"/>
+        <g transform="translate(28,18)" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round">
+          <line x1="14" y1="0" x2="14" y2="28"/>
+          <line x1="0" y1="14" x2="28" y2="14"/>
+        </g>
+        <text x="76" y="42" fill="#FFFFFF" font-size="28">Ajouter à la watchlist</text>
+      </g>
+
+      <text x="1808" y="846" fill="#CBD8E0" font-size="22" text-anchor="end">clé 2 = lecture · clés 4/5 = watchlist</text>
+    </g>
+
+    <text x="112" y="982" fill="#FFFFFF" font-size="40" font-weight="600">Saison 1</text>
+    <g>
+      <use href="#epCardFocus" x="112" y="1016"/>
+      <use href="#epCard" x="528" y="1016"/>
+      <use href="#epCard" x="944" y="1016"/>
+      <use href="#epCard" x="1360" y="1016"/>
+      <use href="#epCard" x="1776" y="1016"/>
+    </g>
+
+    <g stroke="#36DFFA" stroke-width="2" fill="none" stroke-dasharray="8 6">
+      <line x1="180" y1="320" x2="180" y2="780"/>
+      <line x1="168" y1="320" x2="192" y2="320"/>
+      <line x1="168" y1="780" x2="192" y2="780"/>
+      <line x1="180" y1="780" x2="180" y2="892"/>
+      <line x1="168" y1="892" x2="192" y2="892"/>
+      <line x1="1860" y1="0" x2="1860" y2="320"/>
+      <line x1="1848" y1="320" x2="1872" y2="320"/>
+    </g>
+    <g fill="#36DFFA" font-size="22">
+      <text x="200" y="556">bloc description · #303132</text>
+      <text x="200" y="770">actions · 56dp (112px) · #0096FF</text>
+      <text x="1836" y="170" text-anchor="end">blank 160dp (320px)</text>
+    </g>
+  </g>
+
+  <!-- CARTE EPISODE EN DETAIL + ORDRE DES ROWS -->
+  <g transform="translate(0,1080)">
+    <rect width="1920" height="520" fill="#061119"/>
+    <line x1="0" y1="0" x2="1920" y2="0" stroke="#0096FF" stroke-width="3" stroke-dasharray="14 10"/>
+    <text x="1808" y="-16" fill="#5E717B" font-size="22" text-anchor="end">bas de l'écran (1080px)</text>
+
+    <!-- Encart carte épisode, échelle 1:1 -->
+    <text x="112" y="56" fill="#FFFFFF" font-size="28" font-weight="700">Carte épisode (1:1)</text>
+    <use href="#epCard" x="112" y="130"/>
+    <g stroke="#36DFFA" stroke-width="2" fill="none" stroke-dasharray="6 5">
+      <line x1="112" y1="112" x2="512" y2="112"/>
+      <line x1="112" y1="102" x2="112" y2="122"/>
+      <line x1="512" y1="102" x2="512" y2="122"/>
+      <line x1="528" y1="351" x2="600" y2="351"/>
+      <line x1="528" y1="381" x2="600" y2="381"/>
+      <line x1="528" y1="409" x2="600" y2="409"/>
+    </g>
+    <g fill="#36DFFA" font-size="21">
+      <text x="312" y="94" text-anchor="middle">400 × 225 (16:9)</text>
+      <text x="608" y="358">ProgressBar : stoptime / duration</text>
+      <text x="608" y="388">video.fullTitle</text>
+      <text x="608" y="416">video.number</text>
+    </g>
+
+    <!-- Ordre des rows -->
+    <text x="1004" y="56" fill="#FFFFFF" font-size="28" font-weight="700">Rows de la fiche : une par saison, aucun sélecteur</text>
+    <g font-size="21">
+      <rect x="1004" y="82" width="804" height="48" rx="4" fill="#303132"/>
+      <rect x="1004" y="82" width="8" height="48" fill="#FFFFFF"/>
+      <text x="1030" y="112" fill="#FFFFFF">DetailsOverviewRow — affiche, description, actions</text>
+
+      <rect x="1004" y="144" width="804" height="48" rx="4" fill="#00406B"/>
+      <rect x="1004" y="144" width="8" height="48" fill="#0096FF"/>
+      <text x="1030" y="174" fill="#CBD8E0">ListRow « Saison 1 » — index 0 — cartes 400×225</text>
+
+      <rect x="1004" y="206" width="804" height="48" rx="4" fill="#00406B"/>
+      <rect x="1004" y="206" width="8" height="48" fill="#0096FF"/>
+      <text x="1030" y="236" fill="#CBD8E0">ListRow « Saison 2 » — index 1</text>
+
+      <text x="1030" y="282" fill="#5E717B">… une row par SeasonWithVideos, dans l'ordre de l'API</text>
+
+      <rect x="1004" y="300" width="804" height="48" rx="4" fill="#211908"/>
+      <rect x="1004" y="300" width="8" height="48" fill="#FFC93F"/>
+      <text x="1030" y="330" fill="#FFEEC3">ListRow « Anime à voir ensuite » — id −99, en dernier</text>
+
+      <text x="1030" y="378" fill="#5E717B">L'id −99 est une sentinelle : si cette row est déjà la</text>
+      <text x="1030" y="404" fill="#5E717B">dernière, elle est remplacée sur place, pas dupliquée.</text>
+    </g>
+  </g>
+
+  <!-- LEGENDE -->
+  <g transform="translate(0,1600)">
+    <rect width="1920" height="300" fill="#020B11"/>
+    <line x1="0" y1="0" x2="1920" y2="0" stroke="#273D49" stroke-width="2"/>
+
+    <text x="112" y="54" fill="#FFFFFF" font-size="30" font-weight="700">Épisodes et saisons</text>
+
+    <g font-size="24" fill="#CBD8E0">
+      <text x="112" y="104"><tspan fill="#FFFFFF" font-weight="600">Aucune sélection de saison</tspan> : ni onglets, ni menu déroulant, ni picker.</text>
+      <text x="112" y="142">Chaque saison est une row horizontale titrée, empilée verticalement.</text>
+      <text x="112" y="180">On change de saison en montant / descendant au D-pad, comme on</text>
+      <text x="112" y="218">change de catégorie sur l'accueil.</text>
+      <text x="112" y="264">Une row de saison contient <tspan fill="#FFFFFF" font-weight="600">tous</tspan> ses épisodes, BONUS et PV compris.</text>
+
+      <text x="1100" y="104" fill="#78C8FF" font-weight="600">Bouton de lecture</text>
+      <text x="1100" y="142">Libellé = <tspan fill="#FFFFFF" font-weight="600">video.number</tspan>, icône play-circle.</text>
+      <text x="1100" y="180">Cible : le dernier épisode vu, sinon le</text>
+      <text x="1100" y="218">premier épisode de la saison 1 dont le</text>
+      <text x="1100" y="256">type ∈ {EPS, MOV, OAV, SHORT}.</text>
+      <text x="1100" y="292" fill="#5E717B" font-size="21">Ce filtre ne filtre pas les rows.</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1860" width="1920" height="1860" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <title>ADN Android TV — accueil (CatalogFragment) et ordre des rows</title>
+
+  <defs>
+    <g id="poster">
+      <rect width="245" height="454" rx="4" fill="#303132"/>
+      <rect width="245" height="350" fill="#0C2330"/>
+      <path d="M0 265 L62 198 L124 262 L172 218 L245 292 L245 350 L0 350 Z" fill="#273D49"/>
+      <circle cx="188" cy="72" r="27" fill="#273D49"/>
+      <rect x="14" y="368" width="176" height="16" rx="3" fill="#DDDDDD"/>
+      <rect x="14" y="398" width="104" height="12" rx="3" fill="#999999"/>
+    </g>
+
+    <g id="posterFocus">
+      <rect width="245" height="454" rx="4" fill="#0096FF"/>
+      <rect width="245" height="350" fill="#0C2330"/>
+      <path d="M0 265 L62 198 L124 262 L172 218 L245 292 L245 350 L0 350 Z" fill="#273D49"/>
+      <circle cx="188" cy="72" r="27" fill="#273D49"/>
+      <rect x="14" y="368" width="176" height="16" rx="3" fill="#FFFFFF"/>
+      <rect x="14" y="398" width="104" height="12" rx="3" fill="#CBD8E0"/>
+    </g>
+
+    <!-- Carte action 200x200 + bandeau info -->
+    <g id="actionCard">
+      <rect width="200" height="304" rx="4" fill="#303132"/>
+      <rect width="200" height="200" fill="#0C2330"/>
+      <rect x="14" y="218" width="150" height="16" rx="3" fill="#DDDDDD"/>
+      <rect x="14" y="248" width="104" height="12" rx="3" fill="#999999"/>
+    </g>
+
+    <g id="actionCardFocus">
+      <rect width="200" height="304" rx="4" fill="#0096FF"/>
+      <rect width="200" height="200" fill="#0C2330"/>
+      <rect x="14" y="218" width="150" height="16" rx="3" fill="#FFFFFF"/>
+      <rect x="14" y="248" width="104" height="12" rx="3" fill="#CBD8E0"/>
+    </g>
+  </defs>
+
+  <!-- ===================== ÉCRAN 1920x1080 ===================== -->
+  <g>
+    <rect width="1920" height="1080" fill="#04121A"/>
+
+    <!-- Barre de titre : orbe à gauche, badge à droite -->
+    <circle cx="164" cy="114" r="52" fill="#0096FF"/>
+    <g stroke="#FFFFFF" stroke-width="6" fill="none" stroke-linecap="round">
+      <circle cx="158" cy="108" r="18"/>
+      <line x1="171" y1="121" x2="182" y2="132"/>
+    </g>
+    <g text-anchor="end">
+      <text x="1808" y="128" fill="#0096FF" font-size="72" font-weight="700" letter-spacing="2">adn</text>
+      <text x="1808" y="158" fill="#5E717B" font-size="18" letter-spacing="3">ANIMATION DIGITAL NETWORK</text>
+    </g>
+
+    <!-- Rail replié : le focus est dans les rows, seul un liseré reste visible -->
+    <rect x="0" y="0" width="16" height="1080" fill="#020B11"/>
+
+    <!-- Row 0 : Watchlist (insérée par le client) -->
+    <text x="112" y="300" fill="#FFFFFF" font-size="40" font-weight="600">Watchlist</text>
+    <g>
+      <use href="#actionCardFocus" x="112" y="334"/>
+      <g stroke="#DDDDDD" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="152" y1="398" x2="256" y2="398"/>
+        <line x1="152" y1="428" x2="256" y2="428"/>
+        <line x1="152" y1="458" x2="204" y2="458"/>
+        <polyline points="224,456 246,478 286,428"/>
+      </g>
+    </g>
+
+    <!-- Row 1 : catégorie API, cartes séries -->
+    <text x="112" y="720" fill="#999999" font-size="40" font-weight="600">Simulcast</text>
+    <use href="#poster" x="112" y="754"/>
+    <use href="#poster" x="373" y="754"/>
+    <use href="#poster" x="634" y="754"/>
+    <use href="#poster" x="895" y="754"/>
+    <use href="#poster" x="1156" y="754"/>
+    <use href="#poster" x="1417" y="754"/>
+    <use href="#poster" x="1678" y="754"/>
+
+    <!-- Cotes -->
+    <g stroke="#36DFFA" stroke-width="2" fill="none" stroke-dasharray="8 6">
+      <line x1="0" y1="240" x2="112" y2="240"/>
+      <line x1="112" y1="228" x2="112" y2="252"/>
+      <line x1="332" y1="486" x2="640" y2="486"/>
+    </g>
+    <g fill="#36DFFA" font-size="24">
+      <text x="128" y="232">overscan 56dp (112px)</text>
+      <text x="652" y="494">carte au focus — bandeau #0096FF</text>
+    </g>
+  </g>
+
+  <!-- ===================== ORDRE DES ROWS ===================== -->
+  <g transform="translate(0,1080)">
+    <rect width="1920" height="470" fill="#061119"/>
+    <line x1="0" y1="0" x2="1920" y2="0" stroke="#0096FF" stroke-width="3" stroke-dasharray="14 10"/>
+    <text x="1808" y="-16" fill="#5E717B" font-size="22" text-anchor="end">bas de l'écran (1080px) — la suite au défilement</text>
+    <text x="112" y="54" fill="#FFFFFF" font-size="30" font-weight="700">Ordre des rows — donné par l'API, sauf deux insertions du client</text>
+
+    <g font-size="24">
+      <!-- hero, non implémentée -->
+      <g opacity="0.5">
+        <rect x="112" y="82" width="1696" height="52" rx="4" fill="none" stroke="#5E717B" stroke-width="2" stroke-dasharray="10 8"/>
+        <rect x="112" y="82" width="10" height="52" fill="#5E717B"/>
+        <text x="146" y="115" fill="#CBD8E0">row hero — HomeCategoryHeroesDto — HeroCardView 150×150</text>
+        <text x="1792" y="115" fill="#999999" text-anchor="end">profil enfant &lt; 13 ans uniquement · non implémentée</text>
+      </g>
+
+      <rect x="112" y="150" width="1696" height="52" rx="4" fill="#211908"/>
+      <rect x="112" y="150" width="10" height="52" fill="#FFC93F"/>
+      <text x="146" y="183" fill="#FFEEC3">row « Watchlist » — une seule carte d'action</text>
+      <text x="1792" y="183" fill="#FFC93F" text-anchor="end">inséré par le client · index 0</text>
+
+      <rect x="112" y="218" width="1696" height="52" rx="4" fill="#00406B"/>
+      <rect x="112" y="218" width="10" height="52" fill="#0096FF"/>
+      <text x="146" y="251" fill="#CBD8E0">HomeCategoryShowDto — ShowCardPresenter, posters 245×350</text>
+      <text x="1792" y="251" fill="#33ADFF" text-anchor="end">API · ordre de HomeDto</text>
+
+      <rect x="112" y="286" width="1696" height="52" rx="4" fill="#00406B"/>
+      <rect x="112" y="286" width="10" height="52" fill="#0096FF"/>
+      <text x="146" y="319" fill="#CBD8E0">HomeCategoryVideoDto — VideoCardPresenter, 400×225 + barre de reprise</text>
+      <text x="1792" y="319" fill="#33ADFF" text-anchor="end">API · ordre de HomeDto</text>
+
+      <rect x="112" y="354" width="1696" height="52" rx="4" fill="#211908"/>
+      <rect x="112" y="354" width="10" height="52" fill="#FFC93F"/>
+      <text x="146" y="387" fill="#FFEEC3">row « Configuration » — Paramètres · Changer de profil · S'abonner* · Déconnexion</text>
+      <text x="1792" y="387" fill="#FFC93F" text-anchor="end">inséré par le client · toujours en dernier</text>
+
+      <text x="146" y="440" fill="#5E717B" font-size="22">* « S'abonner » n'apparaît que si le compte n'a pas d'abonnement. HomeCategoryUnknownDto est ignoré sans fallback.</text>
+    </g>
+  </g>
+
+  <!-- ===================== LÉGENDE ===================== -->
+  <g transform="translate(0,1550)">
+    <rect width="1920" height="310" fill="#020B11"/>
+    <line x1="0" y1="0" x2="1920" y2="0" stroke="#273D49" stroke-width="2"/>
+
+    <g font-size="24" fill="#CBD8E0">
+      <text x="112" y="60">Le titre de chaque row est <tspan fill="#FFFFFF" font-weight="600">category.title</tspan> renvoyé par l'API ; l'id du HeaderItem est <tspan fill="#FFFFFF" font-weight="600">title.hashCode()</tspan>.</text>
+      <text x="112" y="104">Ces titres alimentent aussi le rail latéral : un header par row, dans le même ordre.</text>
+      <text x="112" y="148">Mise à jour : si le nombre de rows ne change pas, le contenu de chaque row est diffé individuellement — le focus est préservé.</text>
+    </g>
+
+    <g font-size="22">
+      <text x="112" y="216" fill="#78C8FF" font-weight="600">Focus des cartes</text>
+      <rect x="112" y="234" width="28" height="28" fill="#303132"/>
+      <text x="152" y="256" fill="#999999">#303132 au repos</text>
+      <text x="380" y="256" fill="#5E717B">→</text>
+      <rect x="420" y="234" width="28" height="28" fill="#0096FF"/>
+      <text x="460" y="256" fill="#999999">#0096FF au focus — bandeau plein, sans halo ni ombre</text>
+    </g>
+  </g>
+</svg>
